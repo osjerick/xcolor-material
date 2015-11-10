@@ -36,10 +36,10 @@
 \usepackage[T1]{fontenc}
 \usepackage{xcolor-material}[2015/11/07]
 \usepackage{lstdoc}
-\definecolor{MyURLColor}{RGB}{173, 20, 87}
-\definecolor{MyLinkColor}{RGB}{245, 124, 0}
-\definecolor{MyBlue}{RGB}{25, 118, 210}
-\hypersetup{linkcolor=MyLinkColor, urlcolor=material-Red}
+%\definecolor{MyURLColor}{RGB}{173, 20, 87}
+%\definecolor{MyLinkColor}{RGB}{245, 124, 0}
+%\definecolor{MyBlue}{RGB}{25, 118, 210}
+\hypersetup{linkcolor=MaterialOrange700, urlcolor=MaterialPurple600}
 \usepackage{cleveref}
 \usepackage[stretch=10]{microtype}
 \usepackage{fancyhdr}
@@ -54,7 +54,7 @@
 \renewcommand{\cftsubsecpagefont}{\sffamily}
 \renewcommand{\cftaftertoctitle}{\thispagestyle{empty}}
 \usepackage{titlesec}
-\titleformat{\part}{\bfseries\huge\sffamily\color{MyBlue}}{}{0pt}{}
+\titleformat{\part}{\bfseries\huge\sffamily\color{MaterialBlue600}}{}{0pt}{}
 
 \newcommand*{\pkg}[1]{\textsf{#1}}
 \newcommand*{\opt}[1]{\texttt{#1}}
@@ -132,7 +132,7 @@
 %
 % \part*{Implementation}
 %
-% I have used the word `|XM|' followed by an `|@|' character for namespacing purposes into the \xmpkg{} package source.
+% I have used the word `|XCM|' followed by an `|@|' character for namespacing purposes into the \xmpkg{} package source.
 %
 % \section{Required Packages}
 % The \xmpkg{} requires the \xcolorpkg{} and \kvopkg{} packages, both are loaded without any option:
@@ -149,8 +149,8 @@
 %
 %    \begin{macrocode}
 \SetupKeyvalOptions{
-  family=XM,
-  prefix=XM@
+  family=XCM,
+  prefix=XCM@
 }
 %    \end{macrocode}
 %
@@ -167,107 +167,382 @@
 %
 % Note that default value for this key is `|Material|'. Note also that package checks for valid options, if an invalid option is provided package will throw out a package error.
 %
-% \section{Colors Definition}
+% \section{Color Definitions}
+%
+%\begin{macro}{\XCM@definecolor}
+% I have taken the idea from \textsf{xcolor-solarized}\footnote{\textsf{xcolor-solarized} package is available from \url{https://www.ctan.org/pkg/xcolor-solarized}} package of having a convenient internal macro for color definitions.
+%    \begin{macrocode}
+\newcommand\XCM@definecolor{\expandafter\definecolor\expandafter}
+%    \end{macrocode}
+%\end{macro}
+%
+% Using this macro definition we can define all \google{} Material Design colors as follows. Note that for every color in the palette, the |500| variant is the color default as \google{} recommends for primary colors.
 %
 % \subsection{Red}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Red}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Red50}  {RGB}{255, 235, 238}
+\XCM@definecolor{\XCM@prefix Red100} {RGB}{255, 205, 210}
+\XCM@definecolor{\XCM@prefix Red200} {RGB}{239, 154, 154}
+\XCM@definecolor{\XCM@prefix Red300} {RGB}{229, 115, 115}
+\XCM@definecolor{\XCM@prefix Red400} {RGB}{239, 83, 80}
+\XCM@definecolor{\XCM@prefix Red500} {RGB}{244, 67, 54}
+\XCM@definecolor{\XCM@prefix Red600} {RGB}{229, 57, 53}
+\XCM@definecolor{\XCM@prefix Red700} {RGB}{211, 47, 47}
+\XCM@definecolor{\XCM@prefix Red800} {RGB}{198, 40, 40}
+\XCM@definecolor{\XCM@prefix Red900} {RGB}{183, 28, 28}
+\XCM@definecolor{\XCM@prefix RedA100}{RGB}{255, 138, 128}
+\XCM@definecolor{\XCM@prefix RedA200}{RGB}{255, 82, 82}
+\XCM@definecolor{\XCM@prefix RedA400}{RGB}{255, 23, 68}
+\XCM@definecolor{\XCM@prefix RedA700}{RGB}{213, 0, 0}
+\XCM@definecolor{\XCM@prefix Red}    {named}{\XCM@prefix Red500}
 %    \end{macrocode}
 %
 % \subsection{Pink}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Pink}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Pink50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Pink100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Pink200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Pink300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Pink400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Pink500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Pink600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Pink700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Pink800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Pink900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix PinkA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix PinkA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix PinkA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix PinkA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Pink}    {named}{\XCM@prefix Pink500}
 %    \end{macrocode}
 %
 % \subsection{Purple}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Purple}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Purple50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Purple100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Purple200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Purple300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Purple400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Purple500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Purple600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Purple700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Purple800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Purple900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix PurpleA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix PurpleA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix PurpleA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix PurpleA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Purple}    {named}{\XCM@prefix Purple500}
 %    \end{macrocode}
 %
 % \subsection{Deep Purple}
 %    \begin{macrocode}
-\definecolor{\XM@prefix DeepPurple}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurple50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurple100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurple200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurple300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurple400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurple500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurple600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurple700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurple800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurple900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurpleA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurpleA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurpleA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurpleA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepPurple}    {named}{\XCM@prefix DeepPurple500}
 %    \end{macrocode}
 %
 % \subsection{Indigo}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Indigo}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Indigo50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Indigo100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Indigo200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Indigo300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Indigo400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Indigo500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Indigo600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Indigo700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Indigo800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Indigo900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix IndigoA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix IndigoA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix IndigoA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix IndigoA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Indigo}    {named}{\XCM@prefix Indigo500}
 %    \end{macrocode}
 %
 % \subsection{Blue}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Blue}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Blue50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Blue100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Blue200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Blue300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Blue400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Blue500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Blue600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Blue700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Blue800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Blue900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Blue}    {named}{\XCM@prefix Blue500}
 %    \end{macrocode}
 %
 % \subsection{Light Blue}
 %    \begin{macrocode}
-\definecolor{\XM@prefix LightBlue}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlue50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlue100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlue200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlue300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlue400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlue500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlue600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlue700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlue800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlue900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlueA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlueA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlueA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlueA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightBlue}    {named}{\XCM@prefix LightBlue500}
 %    \end{macrocode}
 %
 % \subsection{Cyan}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Cyan}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Cyan50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Cyan100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Cyan200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Cyan300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Cyan400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Cyan500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Cyan600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Cyan700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Cyan800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Cyan900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix CyanA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix CyanA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix CyanA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix CyanA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Cyan}    {named}{\XCM@prefix Cyan500}
 %    \end{macrocode}
 %
 % \subsection{Teal}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Teal}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Teal50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Teal100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Teal200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Teal300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Teal400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Teal500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Teal600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Teal700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Teal800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Teal900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix TealA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix TealA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix TealA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix TealA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Teal}    {named}{\XCM@prefix Teal500}
 %    \end{macrocode}
 %
 % \subsection{Green}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Green}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Green50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Green100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Green200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Green300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Green400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Green500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Green600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Green700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Green800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Green900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix GreenA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix GreenA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix GreenA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix GreenA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Green}    {named}{\XCM@prefix Green500}
 %    \end{macrocode}
 %
 % \subsection{Light Green}
 %    \begin{macrocode}
-\definecolor{\XM@prefix LightGreen}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreen50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreen100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreen200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreen300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreen400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreen500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreen600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreen700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreen800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreen900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreenA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreenA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreenA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreenA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LightGreen}    {named}{\XCM@prefix LightGreen500}
 %    \end{macrocode}
 %
 % \subsection{Lime}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Lime}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Lime50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Lime100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Lime200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Lime300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Lime400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Lime500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Lime600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Lime700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Lime800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Lime900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LimeA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LimeA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LimeA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix LimeA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Lime}    {named}{\XCM@prefix Lime500}
 %    \end{macrocode}
 %
 % \subsection{Yellow}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Yellow}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Yellow50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Yellow100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Yellow200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Yellow300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Yellow400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Yellow500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Yellow600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Yellow700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Yellow800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Yellow900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix YellowA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix YellowA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix YellowA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix YellowA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Yellow}    {named}{\XCM@prefix Yellow500}
 %    \end{macrocode}
 %
 % \subsection{Amber}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Amber}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Amber50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Amber100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Amber200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Amber300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Amber400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Amber500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Amber600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Amber700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Amber800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Amber900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix AmberA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix AmberA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix AmberA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix AmberA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Amber}    {named}{\XCM@prefix Amber500}
 %    \end{macrocode}
 %
 % \subsection{Orange}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Orange}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Orange50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Orange100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Orange200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Orange300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Orange400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Orange500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Orange600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Orange700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Orange800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Orange900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix OrangeA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix OrangeA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix OrangeA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix OrangeA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Orange}    {named}{\XCM@prefix Orange500}
 %    \end{macrocode}
 %
 % \subsection{Deep Orange}
 %    \begin{macrocode}
-\definecolor{\XM@prefix DeepOrange}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrange50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrange100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrange200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrange300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrange400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrange500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrange600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrange700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrange800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrange900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrangeA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrangeA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrangeA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrangeA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrange}    {named}{\XCM@prefix DeepOrange500}
 %    \end{macrocode}
 %
 % \subsection{Brown}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Brown}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Brown50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Brown100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Brown200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Brown300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Brown400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Brown500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Brown600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Brown700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Brown800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Brown900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BrownA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BrownA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BrownA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BrownA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Brown}    {named}{\XCM@prefix Brown500}
 %    \end{macrocode}
 %
 % \subsection{Grey}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Grey}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Grey50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Grey100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Grey200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Grey300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Grey400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Grey500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Grey600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Grey700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Grey800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Grey900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix GreyA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix GreyA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix GreyA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix GreyA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix Grey}    {named}{\XCM@prefix Grey500}
 %    \end{macrocode}
 %
 % \subsection{Blue Grey}
 %    \begin{macrocode}
-\definecolor{\XM@prefix BlueGrey}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGrey50}  {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGrey100} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGrey200} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGrey300} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGrey400} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGrey500} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGrey600} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGrey700} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGrey800} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGrey900} {RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGreyA100}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGreyA200}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGreyA400}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGreyA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix BlueGrey}    {named}{\XCM@prefix BlueGrey500}
 %    \end{macrocode}
 %
 % \subsection{Black \& White}
 %    \begin{macrocode}
-\definecolor{\XM@prefix Black}{RGB}{0, 0, 0}
-\definecolor{\XM@prefix White}{RGB}{255, 255, 255}
+\XCM@definecolor{\XCM@prefix Black}{named}{black}
+\XCM@definecolor{\XCM@prefix White}{named}{white}
 %    \end{macrocode}
 %
 % \subsection{User-level macros}
@@ -287,9 +562,11 @@
 \newenvironment{dummyEnv}{%
 }{%
 %    \end{macrocode}
+%
 % \changes{v0.1}{2015/11/06}{Added a spurious change log entry to
 %   show what a change \emph{within} an environment definition looks
 %   like.}
+%
 % Don't use |%| to introduce a code comment within a |macrocode|
 % environment.  Instead, you should typeset all of your comments with
 % \LaTeX---doing so gives much prettier results.  For comments within a
