@@ -34,13 +34,12 @@
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{xcolor}
-\usepackage{xcolor-material}
+\usepackage{xcolor-material}[2015/11/07]
 \usepackage{lstdoc}
 \definecolor{MyURLColor}{RGB}{173, 20, 87}
 \definecolor{MyLinkColor}{RGB}{245, 124, 0}
 \definecolor{MyBlue}{RGB}{25, 118, 210}
-\hypersetup{linkcolor=MyLinkColor, urlcolor=MyURLColor}
+\hypersetup{linkcolor=MyLinkColor, urlcolor=material-Red}
 \usepackage{cleveref}
 \usepackage[stretch=10]{microtype}
 \usepackage{fancyhdr}
@@ -60,6 +59,7 @@
 \newcommand*{\pkg}[1]{\textsf{#1}}
 \newcommand*{\opt}[1]{\texttt{#1}}
 \newcommand\xcolorpkg{\pkg{xcolor}}
+\newcommand\kvopkg{\pkg{kvoptions}}
 \newcommand\xmpkg{\pkg{xcolor-material}}
 \newcommand\google{\textsf{Google}}
 
@@ -128,15 +128,147 @@
 % describing what the environment is supposed to do, what its
 % mandatory and optional arguments are, and so forth.
 %
-% \StopEventually{}
+% \StopEventually{That's all!}
 %
 % \part*{Implementation}
 %
+% I have used the word `|XM|' followed by an `|@|' character for namespacing purposes into the \xmpkg{} package source.
+%
 % \section{Required Packages}
+% The \xmpkg{} requires the \xcolorpkg{} and \kvopkg{} packages, both are loaded without any option:
+%
+%    \begin{macrocode}
+\RequirePackage{xcolor}[2007/01/21]
+\RequirePackage{kvoptions}[2011/06/30]
+%    \end{macrocode}
+%
+% \xcolorpkg\footnote{The \xcolorpkg{} package is available from \url{https://www.ctan.org/pkg/xcolor}} is the package used to define and use every single color in the \google{} Material Design Color Style Palette. \kvopkg\footnote{The \kvopkg{} package is available from \url{https://www.ctan.org/pkg/kvoptions}} is package that provide tools for supporting options in key value format for package options.
 %
 % \section{Package Options}
+% Setting up \kvopkg{} configuration:
+%
+%    \begin{macrocode}
+\SetupKeyvalOptions{
+  family=XM,
+  prefix=XM@
+}
+%    \end{macrocode}
+%
+% Declaring string option key `|prefix|':
+%
+%    \begin{macrocode}
+\DeclareStringOption[Material]{prefix}[Material]
+\DeclareDefaultOption{
+  \OptionNotUsed
+  \PackageError{xcolor-material}{Unknown `\CurrentOption' option.}
+}
+\ProcessKeyvalOptions*
+%    \end{macrocode}
+%
+% Note that default value for this key is `|Material|'. Note also that package checks for valid options, if an invalid option is provided package will throw out a package error.
 %
 % \section{Colors Definition}
+%
+% \subsection{Red}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Red}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Pink}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Pink}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Purple}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Purple}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Deep Purple}
+%    \begin{macrocode}
+\definecolor{\XM@prefix DeepPurple}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Indigo}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Indigo}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Blue}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Blue}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Light Blue}
+%    \begin{macrocode}
+\definecolor{\XM@prefix LightBlue}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Cyan}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Cyan}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Teal}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Teal}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Green}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Green}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Light Green}
+%    \begin{macrocode}
+\definecolor{\XM@prefix LightGreen}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Lime}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Lime}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Yellow}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Yellow}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Amber}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Amber}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Orange}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Orange}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Deep Orange}
+%    \begin{macrocode}
+\definecolor{\XM@prefix DeepOrange}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Brown}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Brown}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Grey}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Grey}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Blue Grey}
+%    \begin{macrocode}
+\definecolor{\XM@prefix BlueGrey}{RGB}{244,67,54}
+%    \end{macrocode}
+%
+% \subsection{Black \& White}
+%    \begin{macrocode}
+\definecolor{\XM@prefix Black}{RGB}{0, 0, 0}
+\definecolor{\XM@prefix White}{RGB}{255, 255, 255}
+%    \end{macrocode}
 %
 % \subsection{User-level macros}
 %
