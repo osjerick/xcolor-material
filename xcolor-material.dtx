@@ -95,16 +95,20 @@
 % \DoNotIndex{\newcommand,\newenvironment}
 % 
 %
-% \title{The \xmpkg{} package}
-% \author{Copyright\textcopyright{} 2015--, Jerick Órdenes Sepúlveda \\ <\href{mailto:os.jerick+xcolor-material@gmail.com}{os.jerick+xcolormaterial(at)gmail.com}>}
-% \date{\filedate~~ Version \fileversion}
-% \maketitle
-%
+%\newbox\abstractbox
+%\setbox\abstractbox=\vbox{
 % \begin{abstract}
 % 	The \xmpkg{} package is built on the great \xcolorpkg{} package. It exists for providing an useful definition of the \google{} Material Design Color Style Palette, available from \url{https://www.google.com/design/spec/style/color.html}, for use in document writing with \LaTeX{} and Friends.
-% \end{abstract}
+% \end{abstract}}
+% \title{The \xmpkg{} package}
+% \author{Copyright\textcopyright{} 2015--, Jerick Órdenes Sepúlveda \\ <\href{mailto:os.jerick+xcolor-material@gmail.com}{os.jerick+xcolormaterial(at)gmail.com}>}
+% \date{\filedate~~ Version \fileversion\ \box\abstractbox}
+%^^A% \maketitle
 %
-% \tableofcontents\clearpage
+% \csname @twocolumntrue\endcsname
+% \maketitle\thispagestyle{empty}
+% \csname @starttoc\endcsname{toc}
+% \onecolumn
 %
 % \pagestyle{fancy}
 %
@@ -462,20 +466,20 @@
 %
 % \subsection{Deep Orange}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix DeepOrange50}  {RGB}{244,67,54}
-\XCM@definecolor{\XCM@prefix DeepOrange100} {RGB}{244,67,54}
-\XCM@definecolor{\XCM@prefix DeepOrange200} {RGB}{244,67,54}
-\XCM@definecolor{\XCM@prefix DeepOrange300} {RGB}{244,67,54}
-\XCM@definecolor{\XCM@prefix DeepOrange400} {RGB}{244,67,54}
-\XCM@definecolor{\XCM@prefix DeepOrange500} {RGB}{244,67,54}
-\XCM@definecolor{\XCM@prefix DeepOrange600} {RGB}{244,67,54}
-\XCM@definecolor{\XCM@prefix DeepOrange700} {RGB}{244,67,54}
-\XCM@definecolor{\XCM@prefix DeepOrange800} {RGB}{244,67,54}
-\XCM@definecolor{\XCM@prefix DeepOrange900} {RGB}{244,67,54}
-\XCM@definecolor{\XCM@prefix DeepOrangeA100}{RGB}{244,67,54}
-\XCM@definecolor{\XCM@prefix DeepOrangeA200}{RGB}{244,67,54}
-\XCM@definecolor{\XCM@prefix DeepOrangeA400}{RGB}{244,67,54}
-\XCM@definecolor{\XCM@prefix DeepOrangeA700}{RGB}{244,67,54}
+\XCM@definecolor{\XCM@prefix DeepOrange50}  {RGB}{251, 233, 231}
+\XCM@definecolor{\XCM@prefix DeepOrange100} {RGB}{255, 204, 188}
+\XCM@definecolor{\XCM@prefix DeepOrange200} {RGB}{255, 171, 145}
+\XCM@definecolor{\XCM@prefix DeepOrange300} {RGB}{255, 138, 101}
+\XCM@definecolor{\XCM@prefix DeepOrange400} {RGB}{255, 112, 67}
+\XCM@definecolor{\XCM@prefix DeepOrange500} {RGB}{255, 87, 34}
+\XCM@definecolor{\XCM@prefix DeepOrange600} {RGB}{244, 81, 30}
+\XCM@definecolor{\XCM@prefix DeepOrange700} {RGB}{230, 74, 25}
+\XCM@definecolor{\XCM@prefix DeepOrange800} {RGB}{216, 67, 21}
+\XCM@definecolor{\XCM@prefix DeepOrange900} {RGB}{191, 54, 12}
+\XCM@definecolor{\XCM@prefix DeepOrangeA100}{RGB}{255, 158, 128}
+\XCM@definecolor{\XCM@prefix DeepOrangeA200}{RGB}{255, 110, 64}
+\XCM@definecolor{\XCM@prefix DeepOrangeA400}{RGB}{255, 61, 0}
+\XCM@definecolor{\XCM@prefix DeepOrangeA700}{RGB}{221, 44, 0}
 \XCM@definecolor{\XCM@prefix DeepOrange}{named}{\XCM@prefix DeepOrange500}
 %    \end{macrocode}
 %
