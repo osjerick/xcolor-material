@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{xcolor-material}
+\usepackage{tikz}
+\newcommand*\materialpalette[1]{%
+	\parbox[c]{6em}{\color{red}\rule{6em}{\baselineskip}\\
+		\color{red!90}\rule{6em}{\baselineskip}\\
+		\color{red!80}\rule{6em}{\baselineskip}\\
+		\color{red!70}\rule{6em}{\baselineskip}\\
+		\color{red!60}\rule{6em}{\baselineskip}\\
+		\color{red!50}\rule{6em}{\baselineskip}\\
+		\color{red!40}\rule{6em}{\baselineskip}
+	}	
+}
+\pgfkeys{/palette/.is family, /palette,
+	width/.estore in = \paletteWidth,
+	height/.estore in = \paletteHeight,
+	shape/.estore in = \paletteShape,
+	text color/.estore in = \paletteTextColor,
+	font/.store in = \paletteFont,
+	sep/.estore in = \paletteSep,
+	start sep/.estore in = \paletteStartSep,
+	start height/.estore in = \paletteStartHeight,
+	color variant/.estore in = \paletteVariant,
+	add variant/.estore in = \paletteAddVariant,
+	color sep/.estore in = \paletteColorSep,
+	primary variant/.estore in = \palettePrimary,
+	default/.style = {width = .4\textwidth,
+		height = 2\baselineskip,
+		shape = rectangle,
+		text color = black,
+		sep = 0pt,
+		start sep = .2\baselineskip,
+		start height = 6\baselineskip,
+		font = \sffamily,
+		color variant = {10,20,...,100},
+		add variant = {},
+		color sep = !,
+		primary variant = 100
+	}
+}
+\usetikzlibrary{positioning}
+\newcommand*{\materialpalettes}[2][]{%
+	\pgfkeys{/palette, default, #1}
+	\def\mycolor{#2}
+	\begin{tikzpicture}
+		\tikzset{colorbox/.style={rectangle, minimum width=\paletteWidth, minimum height=\paletteHeight, node distance=\paletteSep, outer sep=0pt}}
+		\tikzset{font=\sffamily\normalsize, color=white}
+		
+		\node[colorbox, fill=\mycolor\paletteColorSep\palettePrimary, minimum height=\paletteStartHeight, alias=last] {};
+		\node[anchor=north west, inner sep=1em] at (last.north west) {\mycolor};
+		\node[anchor=south west, inner sep=1em] at (last.south west) {\palettePrimary};
+		\node[anchor=south east, inner sep=1em] at (last.south east) {\texttt{\#FF0000}};
+		
+		\node[node distance=\paletteStartSep, inner sep=0pt, below=of last, alias=last] {};
+		\foreach \x in \paletteVariant {
+			\node[colorbox, fill=\mycolor\paletteColorSep\x, below=of last, alias=last] {};
+			\node[anchor=west, inner sep=1em] at (last.west) {\x};
+			\node[anchor=east, inner sep=1em] at (last.east) {\texttt{\#FF0000}};
+		}
+		
+		\node[node distance=\paletteStartSep, inner sep=0pt, below=of last, alias=last] {};
+		\foreach \x in \paletteAddVariant {
+			\node[colorbox, fill=\mycolor\paletteColorSep\x, below=of last, alias=last] {};
+			\node[anchor=west, inner sep=1em] at (last.west) {\x};
+			\node[anchor=east, inner sep=1em] at (last.east) {\texttt{\#FF0000}};
+		}
+	\end{tikzpicture}
+}
+\begin{document}	
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}]{MaterialBlue}
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500]{MaterialYellow} \#FF0000
+	
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}]{MaterialRed}
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}]{MaterialPurple}
+	\materialpalettes[color variant={red, blue, yellow, gray, black, purple}, color sep={}, primary variant=orange, add variant={red!20, red!30,blue!20, blue!40}]{}
+	
+	\materialpalettes[height=1cm]{yellow}
+	
+	\materialpalettes[sep=.5cm]{brown}
+\end{document}
