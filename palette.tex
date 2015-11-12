@@ -1,127 +1,129 @@
-\documentclass{article}
+\documentclass[a4]{article}
 \usepackage{xcolor}
 \usepackage{xcolor-material}
 \usepackage{tikz}
 
-\makeatletter
-\pgfkeys{/palette/.is family, /palette,
-  width/.estore in = \XCM@pltWidth,
-  height/.estore in = \XCM@pltHeight,
-  shape/.estore in = \XCM@pltShape,
-  title text color/.estore in = \XCM@pltTTextColor,
-  first text color/.estore in = \XCM@pltFTextColor,
-  second text color/.estore in = \XCM@pltSTextColor,
-  colorbox variant font/.store in = \XCM@pltVFont,
-  colorbox value font/.store in = \XCM@pltNFont,
-  title font/.store in = \XCM@pltTFont,
-  sep/.estore in = \XCM@pltSep,
-  first colorbox sep/.estore in = \XCM@pltFirstCSep,
-  title colorbox height/.estore in = \XCM@pltTitleHeight,
-  color variant/.estore in = \XCM@pltVariant,
-  add variant/.estore in = \XCM@pltAddVariant,
-  percent char/.estore in = \XCM@pltPercentSep,
-  primary variant/.estore in = \XCM@pltPrimary,
-  change at/.estore in = \XCM@pltChange,
-  add change at/.estore in = \XCM@pltAddChange,
-  color model/.estore in = \XCM@ColorModel,
-  default/.style = {width = .45\textwidth,
-    height = 2\baselineskip,
-    shape = rectangle,
-    title text color = black,
-    first text color = black,
-    second text color = white,
-    sep = 0pt,
-    first colorbox sep = .2\baselineskip,
-    title colorbox height = 6\baselineskip,
-    colorbox variant font = \sffamily,
-    colorbox value font = \ttfamily,
-    title font = \sffamily\bfseries,
-    color variant = {10,20,...,100},
-    add variant = {},
-    percent char = !,
-    primary variant = 100,
-    change at = 1000,
-    add change at = 1000,
-    color model = HTML
-  }
-}
-\usetikzlibrary{positioning}
-\newcommand*{\colorpalette}[2][]{%
-  \pgfkeys{/palette, default, #1}%
-  \def\XCM@colorname{#2}%
-  \begin{tikzpicture}
-    \tikzset{colorbox/.style={rectangle, minimum width=\XCM@pltWidth, minimum height=\XCM@pltHeight, node distance=\XCM@pltSep, outer sep=0pt}}
-    \tikzset{title/.style = {font=\XCM@pltTFont, color=\XCM@pltTTextColor, inner sep=1em}}
-    \tikzset{variant/.style = {font=\XCM@pltVFont, inner sep=1em}}
-    \tikzset{value/.style = {font=\XCM@pltNFont, inner sep=1em}}
-    
-    \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\XCM@pltPrimary, minimum height=\XCM@pltTitleHeight, alias=last] {};
-    \node[title, anchor=north west] at (last.north west) {\XCM@colorname};
-    \node[title, anchor=south west] at (last.south west) {\XCM@pltPrimary};
-    \node[title, anchor=south east, align=right] at (last.south east) {\texttt{\printcolorvalue[\XCM@ColorModel]{\XCM@colorname\XCM@pltPercentSep\XCM@pltPrimary}}};
-    
-    \def\auxcolor{\XCM@pltFTextColor}%
-    \def\first{1}%
-    \foreach \variant [count=\i] in \XCM@pltVariant {
-      \ifx\i\first
-        \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last, alias=last] {};
-      \else\fi
-      \ifx\variant\XCM@pltChange
-        \gdef\auxcolor{\XCM@pltSTextColor}%
-      \else\fi
-      \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant, below=of last, alias=last] {};
-      \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
-      \node[value, anchor=east, color=\auxcolor, align=right] at (last.east) {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname\XCM@pltPercentSep\variant}};
-    }
-    
-    \def\auxcolor{\XCM@pltFTextColor}%
-    \foreach \variant [count=\i] in \XCM@pltAddVariant {
-      \ifx\i\first
-        \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last, alias=last] {};%
-      \else\fi 
-      \ifx\variant\XCM@pltAddChange
-        \gdef\auxcolor{\XCM@pltSTextColor}%
-      \else\fi
-      \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant, below=of last, alias=last] {};
-      \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
-      \node[value, anchor=east, color=\auxcolor, align=right] at (last.east) {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname\XCM@pltPercentSep\variant}};
-    }
-  \end{tikzpicture}
-}
-\makeatother
+%\makeatletter
+%\pgfkeys{/palette/.is family, /palette,
+%      width/.estore in = \XCM@pltWidth,
+%      height/.estore in = \XCM@pltHeight,
+%      shape/.estore in = \XCM@pltShape,
+%      title text color/.estore in = \XCM@pltTTextColor,
+%      first text color/.estore in = \XCM@pltFTextColor,
+%      second text color/.estore in = \XCM@pltSTextColor,
+%      colorbox variant font/.store in = \XCM@pltVFont,
+%      colorbox value font/.store in = \XCM@pltNFont,
+%      title font/.store in = \XCM@pltTFont,
+%      colorbox sep/.estore in = \XCM@pltColorboxSep,
+%      first colorbox sep/.estore in = \XCM@pltFirstCSep,
+%      title colorbox height/.estore in = \XCM@pltTitleHeight,
+%      color variant/.estore in = \XCM@pltVariant,
+%      add variant/.estore in = \XCM@pltAddVariant,
+%      percent char/.estore in = \XCM@pltPercentSep,
+%      primary variant/.estore in = \XCM@pltPrimary,
+%      change at/.estore in = \XCM@pltChange,
+%      add change at/.estore in = \XCM@pltAddChange,
+%      color model/.estore in = \XCM@ColorModel,
+%      default/.style = {width = .45\textwidth,
+%            height = 2\baselineskip,
+%            shape = rectangle,
+%            title text color = black,
+%            first text color = black,
+%            second text color = white,
+%            colorbox sep = 0pt,
+%            first colorbox sep = .2\baselineskip,
+%            title colorbox height = 6\baselineskip,
+%            colorbox variant font = \sffamily,
+%            colorbox value font = \ttfamily,
+%            title font = \sffamily\bfseries,
+%            color variant = {10,20,...,100},
+%            add variant = {},
+%            percent char = !,
+%            primary variant = 100,
+%            change at = 1000,
+%            add change at = 1000,
+%            color model = HTML
+%      }
+%}
+%\usetikzlibrary{positioning}
+%\newcommand*{\colorpalette}[2][]{%
+%      \pgfkeys{/palette, default, #1}%
+%      \def\XCM@colorname{#2}%
+%      \begin{tikzpicture}
+%            \tikzset{colorbox/.style={\XCM@pltShape, minimum width=\XCM@pltWidth, minimum height=\XCM@pltHeight, node distance=\XCM@pltColorboxSep, outer sep=0pt}}
+%            \tikzset{title/.style = {font=\XCM@pltTFont, color=\XCM@pltTTextColor, inner sep=1em}}
+%            \tikzset{variant/.style = {font=\XCM@pltVFont, inner sep=1em}}
+%            \tikzset{value/.style = {font=\XCM@pltNFont, inner sep=1em}}
+%            
+%            \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\XCM@pltPrimary, minimum height=\XCM@pltTitleHeight, alias=last] {};
+%            \node[title, anchor=north west] at (last.north west) {\XCM@colorname};
+%            \node[title, anchor=south west] at (last.south west) {\XCM@pltPrimary};
+%            \node[title, anchor=south east, align=right] at (last.south east) {\texttt{\printcolorvalue[\XCM@ColorModel]{\XCM@colorname\XCM@pltPercentSep\XCM@pltPrimary}}};
+%            
+%            \def\auxcolor{\XCM@pltFTextColor}%
+%            \def\first{1}%
+%            \foreach \variant [count=\i] in \XCM@pltVariant {
+%                  \ifx\i\first
+%                        \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last, alias=last] {};
+%                  \else\fi
+%                  \ifx\variant\XCM@pltChange
+%                        \gdef\auxcolor{\XCM@pltSTextColor}%
+%                  \else\fi
+%                  \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant, below=of last, alias=last] {};
+%                  \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
+%                  \node[value, anchor=east, color=\auxcolor, align=right] at (last.east) {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname\XCM@pltPercentSep\variant}};
+%            }
+%            
+%            \def\auxcolor{\XCM@pltFTextColor}%
+%            \foreach \variant [count=\i] in \XCM@pltAddVariant {
+%                  \ifx\i\first
+%                        \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last, alias=last] {};%
+%                  \else\fi 
+%                  \ifx\variant\XCM@pltAddChange
+%                        \gdef\auxcolor{\XCM@pltSTextColor}%
+%                  \else\fi
+%                  \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant, below=of last, alias=last] {};
+%                  \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
+%                  \node[value, anchor=east, color=\auxcolor, align=right] at (last.east) {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname\XCM@pltPercentSep\variant}};
+%            }
+%      \end{tikzpicture}
+%}
+%\makeatother
 \begin{document}
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=400, add change at=A200]{MaterialRed}
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=300, add change at=A200]{MaterialPink}
-  
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=300, add change at=A200]{MaterialPurple}
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=300, add change at=A200]{MaterialDeepPurple}
-    
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=500, add change at=A200]{MaterialBlue}
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=300, add change at=A200]{MaterialIndigo}
-  
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=600, add change at=A700]{MaterialLightBlue}
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=700]{MaterialCyan}
-  
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=500]{MaterialTeal}
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=600]{MaterialGreen}
-  
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=700]{MaterialLightGreen}
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=900]{MaterialLime}
-  
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}]{MaterialYellow}
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}]{MaterialAmber}
-  
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=800]{MaterialOrange}
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=500, add change at=400]{MaterialDeepOrange}
-  
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, title text color=white, change at=300]{MaterialBrown}
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, change at=600]{MaterialGrey}
-  
-  \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, title text color=white, change at=400]{MaterialBlueGrey}
-  
-  \colorpalette[color variant={red, blue, yellow, gray, black, purple}, percent char={}, primary variant=orange, add variant={red!20, red!30,blue!20, blue!40}]{}
-  
-  \colorpalette[height=1cm]{yellow}
-  
-  \colorpalette[sep=.5cm]{brown}
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=400, add change at=A200]{MaterialRed}
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=300, add change at=A200]{MaterialPink}
+      
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=300, add change at=A200]{MaterialPurple}
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=300, add change at=A200]{MaterialDeepPurple}
+            
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=500, add change at=A200]{MaterialBlue}
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=300, add change at=A200]{MaterialIndigo}
+      
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=600, add change at=A700]{MaterialLightBlue}
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=700]{MaterialCyan}
+      
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=500]{MaterialTeal}
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=600]{MaterialGreen}
+      
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=700]{MaterialLightGreen}
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=900]{MaterialLime}
+      
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}]{MaterialYellow}
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}]{MaterialAmber}
+      
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=800]{MaterialOrange}
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=500, add change at=400]{MaterialDeepOrange}
+      
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, title text color=white, change at=300]{MaterialBrown}
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, change at=600]{MaterialGrey}
+      
+      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, title text color=white, change at=400]{MaterialBlueGrey}
+      
+      \colorpalette[color variant={red, blue, yellow, gray, black, purple}, percent char={}, primary variant=orange, add variant={red!20, red!30,blue!20, blue!40}]{}
+      
+      \colorpalette[height=1cm, color model=RGB]{yellow}
+      
+      \colorpalette[height=1cm, color model=RGB, colorbox sep=.5cm]{yellow}
+      
+      \colorpalette[colorbox sep=.5cm]{brown}
 \end{document}
