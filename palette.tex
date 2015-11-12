@@ -12,12 +12,16 @@
 		\color{red!40}\rule{6em}{\baselineskip}
 	}	
 }
+\newcommand*{\extractHEXColor}[1]{\extractcolorspecs{#1}{\model}{\mycolor} \convertcolorspec{\model}{\mycolor}{HTML}\printcol \#\printcol}
 \pgfkeys{/palette/.is family, /palette,
 	width/.estore in = \paletteWidth,
 	height/.estore in = \paletteHeight,
 	shape/.estore in = \paletteShape,
-	text color/.estore in = \paletteTextColor,
-	font/.store in = \paletteFont,
+	dtext color/.estore in = \paletteTextColor,
+	ftext color/.estore in = \paletteFTextColor,
+	stext color/.estore in = \paletteSTextColor,
+	colors font/.store in = \paletteFont,
+	descript font/.store in = \paletteDFont,
 	sep/.estore in = \paletteSep,
 	start sep/.estore in = \paletteStartSep,
 	start height/.estore in = \paletteStartHeight,
@@ -25,18 +29,25 @@
 	add variant/.estore in = \paletteAddVariant,
 	color sep/.estore in = \paletteColorSep,
 	primary variant/.estore in = \palettePrimary,
-	default/.style = {width = .4\textwidth,
+	change at/.estore in = \paletteChange,
+	add change at/.estore in = \paletteAddChange,
+	default/.style = {width = .45\textwidth,
 		height = 2\baselineskip,
 		shape = rectangle,
-		text color = black,
+		dtext color = black,
+		ftext color = black,
+		stext color = white,
 		sep = 0pt,
 		start sep = .2\baselineskip,
 		start height = 6\baselineskip,
-		font = \sffamily,
+		colors font = \sffamily,
+		descript font = \sffamily\bfseries,
 		color variant = {10,20,...,100},
 		add variant = {},
 		color sep = !,
-		primary variant = 100
+		primary variant = 100,
+		change at = 1000,
+		add change at = 1000,
 	}
 }
 \usetikzlibrary{positioning}
@@ -45,34 +56,65 @@
 	\def\mycolor{#2}
 	\begin{tikzpicture}
 		\tikzset{colorbox/.style={rectangle, minimum width=\paletteWidth, minimum height=\paletteHeight, node distance=\paletteSep, outer sep=0pt}}
-		\tikzset{font=\sffamily\normalsize, color=white}
+		\tikzset{descript/.style = {font=\paletteDFont, color=\paletteTextColor, inner sep=1em, align=left}}
+		\tikzset{colors/.style = {font=\paletteFont, inner sep=1em, align=left}}
+		\tikzset{every node/.style = {colors}}
 		
 		\node[colorbox, fill=\mycolor\paletteColorSep\palettePrimary, minimum height=\paletteStartHeight, alias=last] {};
-		\node[anchor=north west, inner sep=1em] at (last.north west) {\mycolor};
-		\node[anchor=south west, inner sep=1em] at (last.south west) {\palettePrimary};
-		\node[anchor=south east, inner sep=1em] at (last.south east) {\texttt{\#FF0000}};
+		\node[descript, anchor=north west] at (last.north west) {\mycolor};
+		\node[descript, anchor=south west] at (last.south west) {\palettePrimary};
+		\node[descript, anchor=south east, align=right] at (last.south east) {\texttt{\extractHEXColor{\mycolor\paletteColorSep\palettePrimary}}};
 		
-		\node[node distance=\paletteStartSep, inner sep=0pt, below=of last, alias=last] {};
-		\foreach \x in \paletteVariant {
+		\def\auxcolor{\paletteFTextColor}
+		\def\first{1}
+		\foreach \x [count=\i] in \paletteVariant {
+			\ifx\i\first \node[node distance=\paletteStartSep, inner sep=0pt, below=of last, alias=last] {};\else\fi 
+			\ifx\x\paletteChange \gdef\auxcolor{\paletteSTextColor}\else\fi
 			\node[colorbox, fill=\mycolor\paletteColorSep\x, below=of last, alias=last] {};
-			\node[anchor=west, inner sep=1em] at (last.west) {\x};
-			\node[anchor=east, inner sep=1em] at (last.east) {\texttt{\#FF0000}};
+			\node[anchor=west, color=\auxcolor] at (last.west) {\x};
+			\node[anchor=east, color=\auxcolor, align=right] at (last.east) {\texttt{\extractHEXColor{\mycolor\paletteColorSep\x}}};
 		}
 		
-		\node[node distance=\paletteStartSep, inner sep=0pt, below=of last, alias=last] {};
-		\foreach \x in \paletteAddVariant {
+		\def\auxcolor{\paletteFTextColor}
+		\foreach \x [count=\i] in \paletteAddVariant {
+			\ifx\i\first \node[node distance=\paletteStartSep, inner sep=0pt, below=of last, alias=last] {};\else\fi 
+			\ifx\x\paletteAddChange \gdef\auxcolor{\paletteSTextColor}\else\fi
 			\node[colorbox, fill=\mycolor\paletteColorSep\x, below=of last, alias=last] {};
-			\node[anchor=west, inner sep=1em] at (last.west) {\x};
-			\node[anchor=east, inner sep=1em] at (last.east) {\texttt{\#FF0000}};
+			\node[anchor=west, color=\auxcolor] at (last.west) {\x};
+			\node[anchor=east, color=\auxcolor, align=right] at (last.east) {\texttt{\extractHEXColor{\mycolor\paletteColorSep\x}}};
 		}
 	\end{tikzpicture}
 }
-\begin{document}	
-	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}]{MaterialBlue}
-	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500]{MaterialYellow} \#FF0000
+\begin{document}
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}, dtext color=white, change at=400, add change at=A200]{MaterialRed}
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}, dtext color=white, change at=300, add change at=A200]{MaterialPink}
 	
-	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}]{MaterialRed}
-	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}]{MaterialPurple}
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}, dtext color=white, change at=300, add change at=A200]{MaterialPurple}
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}, dtext color=white, change at=300, add change at=A200]{MaterialDeepPurple}
+		
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}, dtext color=white, change at=500, add change at=A200]{MaterialBlue}
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}, dtext color=white, change at=300, add change at=A200]{MaterialIndigo}
+	
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=600, add change at=A700]{MaterialLightBlue}
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=700]{MaterialCyan}
+	
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}, dtext color=white, change at=500]{MaterialTeal}
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=600]{MaterialGreen}
+	
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=700]{MaterialLightGreen}
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=900]{MaterialLime}
+	
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}]{MaterialYellow}
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}]{MaterialAmber}
+	
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}, change at=800]{MaterialOrange}
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, add variant={A100,A200,A400,A700}, dtext color=white, change at=500, add change at=400]{MaterialDeepOrange}
+	
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, dtext color=white, change at=300]{MaterialBrown}
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, change at=600]{MaterialGrey}
+	
+	\materialpalettes[color variant={50,100,200,...,900}, color sep={}, primary variant=500, dtext color=white, change at=400]{MaterialBlueGrey}
+	
 	\materialpalettes[color variant={red, blue, yellow, gray, black, purple}, color sep={}, primary variant=orange, add variant={red!20, red!30,blue!20, blue!40}]{}
 	
 	\materialpalettes[height=1cm]{yellow}
