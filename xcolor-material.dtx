@@ -26,7 +26,7 @@
 %</package>
 %
 %<*driver>
-\documentclass[a4]{ltxdoc}
+\documentclass[a4paper]{ltxdoc}
 \EnableCrossrefs         
 \CodelineIndex
 \RecordChanges
@@ -35,30 +35,26 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{xcolor-material}[2015/11/07]
+\usepackage[stretch=10]{microtype}
 \usepackage{lstdoc}
+\makeatletter
+\def\@part[#1]#2{\ifhyper\phantomsection\fi
+  \addcontentsline{toc}{part}{\sffamily #1}%
+  {\parindent\z@ \raggedright \interlinepenalty\@M
+    \sffamily \huge \bfseries \color{MaterialBlue700} #2\markboth{}{}\par}%
+  \nobreak\vskip 3ex\@afterheading}
+\makeatother
 \hypersetup{linkcolor=MaterialRed600, urlcolor=MaterialPink600}
 \usepackage{cleveref}
-\usepackage[stretch=10]{microtype}
-\usepackage{fancyhdr}
-\fancyhf{}
-\fancyfoot[C]{\sffamily\small\selectfont\thepage}
-\renewcommand{\headrulewidth}{0pt}
-\usepackage{tocloft}
-\renewcommand{\cftpartpresnum}{}
-\renewcommand{\cftpartfont}{\bfseries\large\sffamily}
-\renewcommand{\cftpartpagefont}{\bfseries\large\sffamily}
-\renewcommand{\cftsecpagefont}{\sffamily}
-\renewcommand{\cftsubsecpagefont}{\sffamily}
-\renewcommand{\cftaftertoctitle}{\thispagestyle{empty}}
-\usepackage{titlesec}
-\titleformat{\part}{\bfseries\huge\sffamily\color{MaterialBlue700}}{}{0pt}{}
 
 \newcommand*{\pkg}[1]{\textsf{#1}}
 \newcommand*{\opt}[1]{\texttt{#1}}
 \newcommand\xcolorpkg{\pkg{xcolor}}
 \newcommand\kvopkg{\pkg{kvoptions}}
 \newcommand\xmpkg{\pkg{xcolor-material}}
-\newcommand\google{{\sffamily{\color{GoogleBlue}G}{\color{GoogleRed}o}{\color{GoogleYellow}o}{\color{GoogleBlue}g}{\color{GoogleGreen}l}{\color{GoogleRed}e}}}
+\newcommand\google{{\sffamily{\color{GoogleBlue}G}{\color{GoogleRed}o}%
+  {\color{GoogleYellow}o}{\color{GoogleBlue}g}{\color{GoogleGreen}l}{\color{GoogleRed}e}}}
+\newcommand\tikzpkg{PGF/Ti\textit{k}Z}
 
 \makeindex
 \begin{document}
@@ -98,24 +94,44 @@
 %\newbox\abstractbox
 %\setbox\abstractbox=\vbox{
 % \begin{abstract}
-%     The \xmpkg{} package is built on the great \xcolorpkg{} package. It exists for providing an useful definition of the \google{} Material Design Color Style Palette, available from \url{https://www.google.com/design/spec/style/color.html}, for use in document writing with \LaTeX{} and Friends.
+% The \xmpkg{} package is built on the great \xcolorpkg{} package. It exists 
+% for providing an useful definition of the \google{} Material Design Color
+% Style Palette, available from
+% \url{https://www.google.com/design/spec/style/color.html}, for use in
+% document writing with \LaTeX{} and Friends.
 % \end{abstract}}
 % \title{The \xmpkg{} package}
-% \author{Copyright\textcopyright{} 2015--, Jerick Órdenes Sepúlveda \\ <\href{mailto:os.jerick+xcolor-material@gmail.com}{os.jerick+xcolormaterial(at)gmail.com}>}
+% \author{Copyright\textcopyright{} 2015--, Jerick Órdenes Sepúlveda \\
+% <\href{mailto:os.jerick+xcolor-material@gmail.com}%
+% {os.jerick+xcolormaterial(at)gmail.com}>}
 % \date{\filedate~~ Version \fileversion\ \box\abstractbox}
-%^^A% \maketitle
 %
 % \csname @twocolumntrue\endcsname
 % \maketitle\thispagestyle{empty}
 % \csname @starttoc\endcsname{toc}
 % \onecolumn
 %
-% \pagestyle{fancy}
-%
-%
-% \part*{Usage}
+% \part{Usage}
 %
 % Put text here.
+%
+% \section{Installation}
+%
+% \subsection{Required Packages}
+%
+% \subsection{Installing the \xmpkg{}}
+%
+% \section{Loading the \xmpkg{}}
+%
+% \section{Package Options}
+%
+% \section{Using the \xmpkg{} Colors}
+%
+% \subsection{Color Names}
+%
+% \subsection{Color Palettes}
+%
+% \subsection[Google Colors]{\google{} Colors}
 %
 % \DescribeMacro{\dummyMacro}
 % This macro does nothing.\index{doing nothing|usage} It is merely an
@@ -131,9 +147,11 @@
 %
 % \StopEventually{That's all!}
 %
-% \part*{Implementation}
+% \part{Implementation}
+% 
 %
-% I have used the word `|XCM|' followed by an `|@|' character for namespacing purposes into the \xmpkg{} package source.
+% I have used the word `|XCM|' followed by an `|@|' character for namespacing
+% purposes into the \xmpkg{} package source.
 %
 % \section{Required Packages}
 % The \xmpkg{} requires the \xcolorpkg{} and \kvopkg{} packages, both are loaded without any option:
@@ -143,15 +161,20 @@
 \RequirePackage{kvoptions}[2011/06/30]
 %    \end{macrocode}
 %
-% \xcolorpkg\footnote{The \xcolorpkg{} package is available from \url{https://www.ctan.org/pkg/xcolor}} is the package used to define and use every single color in the \google{} Material Design Color Style Palette. \kvopkg\footnote{The \kvopkg{} package is available from \url{https://www.ctan.org/pkg/kvoptions}} is package that provide tools for supporting options in key value format for package options.
+% \xcolorpkg\footnote{The \xcolorpkg{} package is available from
+% \url{https://www.ctan.org/pkg/xcolor}} is the package used to define and use
+% every single color in the \google{} Material Design Color Style Palette.
+% \kvopkg\footnote{The \kvopkg{} package is available from
+% \url{https://www.ctan.org/pkg/kvoptions}} is package that provide tools for
+% supporting options in key value format for package options.
 %
 % \section{Package Options}
 % Setting up \kvopkg{} configuration:
 %
 %    \begin{macrocode}
 \SetupKeyvalOptions{
-  family=XCM,
-  prefix=XCM@
+    family=XCM,
+    prefix=XCM@
 }
 %    \end{macrocode}
 %
@@ -160,24 +183,30 @@
 %    \begin{macrocode}
 \DeclareStringOption[Material]{prefix}[Material]
 \DeclareDefaultOption{
-  \OptionNotUsed
-  \PackageError{xcolor-material}{Unknown `\CurrentOption' option.}
+    \OptionNotUsed
+    \PackageError{xcolor-material}{Unknown `\CurrentOption' option.}
 }
 \ProcessKeyvalOptions*
 %    \end{macrocode}
 %
-% Note that default value for this key is `|Material|'. Note also that package checks for valid options, if an invalid option is provided package will throw out a package error.
+% Note that default value for this key is `|Material|'. Note also that package
+% checks for valid options, if an invalid option is provided package will throw
+% out a package error.
 %
 % \section{Color Definitions}
 %
 % \begin{macro}{\XCM@definecolor}
-%   I have taken the idea from \textsf{xcolor-solarized}\footnote{\textsf{xcolor-solarized} package is available from \url{https://www.ctan.org/pkg/xcolor-solarized}} package of having a convenient internal macro for color definitions.
+%   I have taken the idea from \textsf{xcolor-solarized}\footnote{\textsf{xcolor-solarized}
+    % package is available from \url{https://www.ctan.org/pkg/xcolor-solarized}}
+% package of having a convenient internal macro for color definitions.
 %    \begin{macrocode}
 \newcommand\XCM@definecolor{\expandafter\definecolor\expandafter}
 %    \end{macrocode}
 % \end{macro}
 %
-% Using this macro definition we can define all \google{} Material Design colors as follows. Note that for every color in the palette, the |500| variant is the color default as \google{} recommends for primary colors.
+% Using this macro definition we can define all \google{} Material Design
+% colors as follows. Note that for every color in the palette, the |500|
+% variant is the color default as \google{} recommends for primary colors.
 %
 % \subsection{Red}
 %    \begin{macrocode}
@@ -555,7 +584,10 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\printcolorvalue}
-%   A user level macro to provide color values formatted in three different color models: \textbf{HTML}, \textbf{RGB}, and \textbf{CMYK}.
+% A user level macro to provide color values formatted in three different color
+% models: \textbf{HTML}, \textbf{RGB}, and
+% \textbf{CMYK}. Default value for color model is |HTML|, that provide color
+% values in hexadecimal format.
 %    \begin{macrocode}
 \newcommand*{\printcolorvalue}[2][HTML]{%
   \edef\requiredModel{#1}%
@@ -574,11 +606,19 @@
 }
 %    \end{macrocode}
 % \end{macro}
-%
-% \begin{macro}{\colorpalette}
+% I provide some macro definitions at begin document.
 %    \begin{macrocode}
 \AtBeginDocument{
+%    \end{macrocode}
+% There is a macro definition that is built on top of the \tikzpkg{} package. 
+% This definition works if this package is loaded into main document.
+%    \begin{macrocode}
   \@ifpackageloaded{tikz}{%
+%    \end{macrocode}
+% When \tikzpkg{} is loaded a macro with key--value options is provided, using
+% the |\pgfkeys| tools. Those macro arguments are optional, the default value
+% of each one is defined on the |/palette/default| style.
+%    \begin{macrocode}
   \pgfkeys{/palette/.is family, /palette,
     width/.estore in = \XCM@pltWidth,
     height/.estore in = \XCM@pltHeight,
@@ -620,68 +660,78 @@
       color model = HTML
     }
   }
+%    \end{macrocode}
+% The |positioning| library of \tikzpkg{} is loaded to provide convenient node
+% placement.
+%    \begin{macrocode}
   \usetikzlibrary{positioning}
+%    \end{macrocode}
+% \begin{macro}{\colorpalette}
+% A macro to draw color palettes using \tikzpkg{}. It takes a list of
+% key--value optional arguments. The default value of the arguments is
+% specified in the |/palette/default| style defined above.
+%    \begin{macrocode}
   \newcommand*{\colorpalette}[2][]{%
     \pgfkeys{/palette, default, #1}%
     \def\XCM@colorname{#2}%
     \begin{tikzpicture}
-    \tikzset{colorbox/.style={\XCM@pltShape, minimum width=\XCM@pltWidth,
-      minimum height=\XCM@pltHeight, node distance=\XCM@pltColorboxSep,
-      outer sep=0pt}}
-    \tikzset{title/.style = {font=\XCM@pltTFont, color=\XCM@pltTTextColor,
-      inner sep=1em}}
-    \tikzset{variant/.style = {font=\XCM@pltVFont, inner sep=1em}}
-    \tikzset{value/.style = {font=\XCM@pltNFont, inner sep=1em}}
-    
-    \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\XCM@pltPrimary,
+      \tikzset{colorbox/.style={\XCM@pltShape, minimum width=\XCM@pltWidth,
+        minimum height=\XCM@pltHeight, node distance=\XCM@pltColorboxSep,
+        outer sep=0pt}}
+      \tikzset{title/.style = {font=\XCM@pltTFont, color=\XCM@pltTTextColor,
+        inner sep=1em}}
+      \tikzset{variant/.style = {font=\XCM@pltVFont, inner sep=1em}}
+      \tikzset{value/.style = {font=\XCM@pltNFont, inner sep=1em}}
+      
+      \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\XCM@pltPrimary,
       minimum height=\XCM@pltTitleHeight, alias=last] {};
-    \node[title, anchor=north west] at (last.north west) {\XCM@colorname};
-    \node[title, anchor=south west] at (last.south west) {\XCM@pltPrimary};
-    \node[title, anchor=south east, align=right] at (last.south east) 
-    {\texttt{\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
+      \node[title, anchor=north west] at (last.north west) {\XCM@colorname};
+      \node[title, anchor=south west] at (last.south west) {\XCM@pltPrimary};
+      \node[title, anchor=south east, align=right] at (last.south east) 
+      {\texttt{\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
       \XCM@pltPercentSep\XCM@pltPrimary}}};
-    
-    \def\auxcolor{\XCM@pltFTextColor}%
-    \def\first{1}%
-    \foreach \variant [count=\i] in \XCM@pltVariant {
-      \ifx\i\first
-        \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last,
+      
+      \def\auxcolor{\XCM@pltFTextColor}%
+      \def\first{1}%
+      \foreach \variant [count=\i] in \XCM@pltVariant {
+        \ifx\i\first
+          \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last,
           alias=last] {};
-      \else\fi
-      \ifx\variant\XCM@pltChange
-        \gdef\auxcolor{\XCM@pltSTextColor}%
-      \else\fi
-      \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant,
-        below=of last, alias=last] {};
-      \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
-      \node[value, anchor=east, color=\auxcolor, align=right] at (last.east)
-        {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
-        \XCM@pltPercentSep\variant}};
-    }
-    
-    \def\auxcolor{\XCM@pltFTextColor}%
-    \foreach \variant [count=\i] in \XCM@pltAddVariant {
-      \ifx\i\first
-        \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last,
+        \else\fi
+        \ifx\variant\XCM@pltChange
+          \gdef\auxcolor{\XCM@pltSTextColor}%
+        \else\fi
+        \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant,
+          below=of last, alias=last] {};
+        \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
+        \node[value, anchor=east, color=\auxcolor, align=right] at (last.east)
+          {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
+            \XCM@pltPercentSep\variant}};
+      }
+      
+      \def\auxcolor{\XCM@pltFTextColor}%
+      \foreach \variant [count=\i] in \XCM@pltAddVariant {
+        \ifx\i\first
+          \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last,
           alias=last] {};%
-      \else\fi 
-      \ifx\variant\XCM@pltAddChange
-        \gdef\auxcolor{\XCM@pltSTextColor}%
-      \else\fi
-      \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant,
-        below=of last, alias=last] {};
-      \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
-      \node[value, anchor=east, color=\auxcolor, align=right] at (last.east)
-        {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
-        \XCM@pltPercentSep\variant}};
-    }
+        \else\fi 
+        \ifx\variant\XCM@pltAddChange
+          \gdef\auxcolor{\XCM@pltSTextColor}%
+        \else\fi
+        \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant,
+          below=of last, alias=last] {};
+        \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
+        \node[value, anchor=east, color=\auxcolor, align=right] at (last.east)
+          {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
+            \XCM@pltPercentSep\variant}};
+      }
     \end{tikzpicture}
   }
-  }{%
-  \def\hola{Hola No}
-  }
-}
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+  }{}
+}
+%    \end{macrocode}
 % \Finale
 \endinput

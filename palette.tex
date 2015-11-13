@@ -89,8 +89,39 @@
 %      \end{tikzpicture}
 %}
 %\makeatother
+\newlength{\pltheight}
+\setlength{\pltheight}{\baselineskip}
+\newlength{\pltwidth}
+\setlength{\pltwidth}{.4\textwidth}
+\newif\ifaddvariant
+\addvariantfalse
+%\newcommand*{\colorpalette}[2][]{%
+%  \def\materialcolor{#2}
+%  \parbox[t]{\pltwidth}{%
+%    \textcolor{\materialcolor 50}{\rule{\pltwidth}{\pltheight}}\\
+%    \textcolor{\materialcolor 100}{\rule{\pltwidth}{\pltheight}}\\
+%    \textcolor{\materialcolor 200}{\rule{\pltwidth}{\pltheight}}\\
+%    \textcolor{\materialcolor 300}{\rule{\pltwidth}{\pltheight}}\\
+%    \textcolor{\materialcolor 400}{\rule{\pltwidth}{\pltheight}}\\
+%    \textcolor{\materialcolor 500}{\rule{\pltwidth}{\pltheight}}\\
+%    \textcolor{\materialcolor 600}{\rule{\pltwidth}{\pltheight}}\\
+%    \textcolor{\materialcolor 700}{\rule{\pltwidth}{\pltheight}}\\
+%    \textcolor{\materialcolor 800}{\rule{\pltwidth}{\pltheight}}\\
+%    \textcolor{\materialcolor 900}{\rule{\pltwidth}{\pltheight}}
+%    
+%    \ifaddvariant
+%        \vspace{.1\pltheight}
+%        \textcolor{\materialcolor A100}{\rule{\pltwidth}{\pltheight}}\\
+%        \textcolor{\materialcolor A200}{\rule{\pltwidth}{\pltheight}}\\
+%        \textcolor{\materialcolor A400}{\rule{\pltwidth}{\pltheight}}\\
+%        \textcolor{\materialcolor A700}{\rule{\pltwidth}{\pltheight}}
+%     \else\fi
+%  }    
+%}
 \begin{document}
+      \addvarianttrue
       \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=400, add change at=A200]{MaterialRed}
+      \addvariantfalse
       \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=300, add change at=A200]{MaterialPink}
       
       \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=300, add change at=A200]{MaterialPurple}
@@ -117,13 +148,14 @@
       \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, title text color=white, change at=300]{MaterialBrown}
       \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, change at=600]{MaterialGrey}
       
+      \setlength{\pltheight}{2\baselineskip}
       \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, title text color=white, change at=400]{MaterialBlueGrey}
       
-      \colorpalette[color variant={red, blue, yellow, gray, black, purple}, percent char={}, primary variant=orange, add variant={red!20, red!30,blue!20, blue!40}]{}
+%      \colorpalette[color variant={red, blue, yellow, gray, black, purple}, percent char={}, primary variant=orange, add variant={red!20, red!30,blue!20, blue!40}]{}
       
-      \colorpalette[height=1cm, color model=RGB]{yellow}
+      %\colorpalette[height=1cm, color model=RGB]{yellow}
       
-      \colorpalette[height=1cm, color model=RGB, colorbox sep=.5cm]{yellow}
+      %\colorpalette[height=1cm, color model=RGB, colorbox sep=.5cm]{yellow}
       
-      \colorpalette[colorbox sep=.5cm]{brown}
+      %\colorpalette[colorbox sep=.5cm]{brown}
 \end{document}
