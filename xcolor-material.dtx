@@ -600,24 +600,24 @@
     add change at/.estore in = \XCM@pltAddChange,
     color model/.estore in = \XCM@ColorModel,
     default/.style = {width = .45\textwidth,
-        height = 2\baselineskip,
-        shape = rectangle,
-        title text color = black,
-        first text color = black,
-        second text color = white,
-        colorbox sep = 0pt,
-        first colorbox sep = .2\baselineskip,
-        title colorbox height = 6\baselineskip,
-        colorbox variant font = \sffamily,
-        colorbox value font = \ttfamily,
-        title font = \sffamily\bfseries,
-        color variant = {10,20,...,100},
-        add variant = {},
-        percent char = !,
-        primary variant = 100,
-        change at = 1000,
-        add change at = 1000,
-        color model = HTML
+      height = 2\baselineskip,
+      shape = rectangle,
+      title text color = black,
+      first text color = black,
+      second text color = white,
+      colorbox sep = 0pt,
+      first colorbox sep = .2\baselineskip,
+      title colorbox height = 6\baselineskip,
+      colorbox variant font = \sffamily,
+      colorbox value font = \ttfamily,
+      title font = \sffamily\bfseries,
+      color variant = {10,20,...,100},
+      add variant = {},
+      percent char = !,
+      primary variant = 100,
+      change at = 1000,
+      add change at = 1000,
+      color model = HTML
     }
   }
   \usetikzlibrary{positioning}
@@ -625,41 +625,55 @@
     \pgfkeys{/palette, default, #1}%
     \def\XCM@colorname{#2}%
     \begin{tikzpicture}
-    \tikzset{colorbox/.style={\XCM@pltShape, minimum width=\XCM@pltWidth, minimum height=\XCM@pltHeight, node distance=\XCM@pltColorboxSep, outer sep=0pt}}
-    \tikzset{title/.style = {font=\XCM@pltTFont, color=\XCM@pltTTextColor, inner sep=1em}}
+    \tikzset{colorbox/.style={\XCM@pltShape, minimum width=\XCM@pltWidth,
+      minimum height=\XCM@pltHeight, node distance=\XCM@pltColorboxSep,
+      outer sep=0pt}}
+    \tikzset{title/.style = {font=\XCM@pltTFont, color=\XCM@pltTTextColor,
+      inner sep=1em}}
     \tikzset{variant/.style = {font=\XCM@pltVFont, inner sep=1em}}
     \tikzset{value/.style = {font=\XCM@pltNFont, inner sep=1em}}
     
-    \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\XCM@pltPrimary, minimum height=\XCM@pltTitleHeight, alias=last] {};
+    \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\XCM@pltPrimary,
+      minimum height=\XCM@pltTitleHeight, alias=last] {};
     \node[title, anchor=north west] at (last.north west) {\XCM@colorname};
     \node[title, anchor=south west] at (last.south west) {\XCM@pltPrimary};
-    \node[title, anchor=south east, align=right] at (last.south east) {\texttt{\printcolorvalue[\XCM@ColorModel]{\XCM@colorname\XCM@pltPercentSep\XCM@pltPrimary}}};
+    \node[title, anchor=south east, align=right] at (last.south east) 
+    {\texttt{\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
+      \XCM@pltPercentSep\XCM@pltPrimary}}};
     
     \def\auxcolor{\XCM@pltFTextColor}%
     \def\first{1}%
     \foreach \variant [count=\i] in \XCM@pltVariant {
-        \ifx\i\first
-        \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last, alias=last] {};
-        \else\fi
-        \ifx\variant\XCM@pltChange
+      \ifx\i\first
+        \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last,
+          alias=last] {};
+      \else\fi
+      \ifx\variant\XCM@pltChange
         \gdef\auxcolor{\XCM@pltSTextColor}%
-        \else\fi
-        \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant, below=of last, alias=last] {};
-        \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
-        \node[value, anchor=east, color=\auxcolor, align=right] at (last.east) {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname\XCM@pltPercentSep\variant}};
+      \else\fi
+      \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant,
+        below=of last, alias=last] {};
+      \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
+      \node[value, anchor=east, color=\auxcolor, align=right] at (last.east)
+        {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
+        \XCM@pltPercentSep\variant}};
     }
     
     \def\auxcolor{\XCM@pltFTextColor}%
     \foreach \variant [count=\i] in \XCM@pltAddVariant {
-        \ifx\i\first
-        \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last, alias=last] {};%
-        \else\fi 
-        \ifx\variant\XCM@pltAddChange
+      \ifx\i\first
+        \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last,
+          alias=last] {};%
+      \else\fi 
+      \ifx\variant\XCM@pltAddChange
         \gdef\auxcolor{\XCM@pltSTextColor}%
-        \else\fi
-        \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant, below=of last, alias=last] {};
-        \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
-        \node[value, anchor=east, color=\auxcolor, align=right] at (last.east) {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname\XCM@pltPercentSep\variant}};
+      \else\fi
+      \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant,
+        below=of last, alias=last] {};
+      \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
+      \node[value, anchor=east, color=\auxcolor, align=right] at (last.east)
+        {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
+        \XCM@pltPercentSep\variant}};
     }
     \end{tikzpicture}
   }
