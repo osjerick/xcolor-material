@@ -707,13 +707,13 @@
         \node[value, anchor=east, color=\auxcolor, align=right] at (last.east)
           {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
             \XCM@pltPercentSep\variant}};
-      }
+      }%
       
       \def\auxcolor{\XCM@pltFTextColor}%
       \foreach \variant [count=\i] in \XCM@pltAddVariant {
         \ifx\i\first
           \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last,
-          alias=last] {};%
+          alias=last] {};
         \else\fi 
         \ifx\variant\XCM@pltAddChange
           \gdef\auxcolor{\XCM@pltSTextColor}%
@@ -724,8 +724,8 @@
         \node[value, anchor=east, color=\auxcolor, align=right] at (last.east)
           {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
             \XCM@pltPercentSep\variant}};
-      }
-    \end{tikzpicture}
+      }%
+    \end{tikzpicture}%
   }
 %    \end{macrocode}
 % \end{macro}
