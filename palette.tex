@@ -89,12 +89,12 @@
 %      \end{tikzpicture}
 %}
 %\makeatother
-\newlength{\pltheight}
-\setlength{\pltheight}{\baselineskip}
-\newlength{\pltwidth}
-\setlength{\pltwidth}{.4\textwidth}
-\newif\ifaddvariant
-\addvariantfalse
+%\newlength{\pltheight}
+%\setlength{\pltheight}{\baselineskip}
+%\newlength{\pltwidth}
+%\setlength{\pltwidth}{.4\textwidth}
+%\newif\ifaddvariant
+%\addvariantfalse
 %\newcommand*{\colorpalette}[2][]{%
 %  \def\materialcolor{#2}
 %  \parbox[t]{\pltwidth}{%
@@ -118,9 +118,33 @@
 %     \else\fi
 %  }    
 %}
+\makeatletter
+\def\mycommand{%
+	\@ifnextchar[%
+	{\mycommand@i}
+	{\mycommand@i[<default-for-1>]}%
+}
+\def\mycommand@i[#1]{%
+	\@ifnextchar[%
+	{\mycommand@ii{#1}}
+	{\mycommand@ii{#1}[<default-for-2>]}%
+}
+\def\mycommand@ii#1[#2]#3{%
+	% Do stuff
+}
+\makeatother
 \begin{document}
-	\colorbox{MaterialGreen}{\parbox[b][10\baselineskip]{8em}{\hspace{1em}\ttfamily\color{white}\vspace*{1em} MaterialGreen\vfill\printcolorvalue{MaterialGreen}\vspace*{1em}}}
-	\colorbox{MaterialGreen}{\parbox[b][10\baselineskip]{8em}{\hspace{1em}\ttfamily\color{white}\printcolorvalue{MaterialGreen600}\vspace*{1em}}}
+  \colorbox{MaterialGreen}{%
+    \parbox[b][12\baselineskip]{10em}{%
+      \bfseries\sffamily\color{white}
+      \vspace*{1em}
+      \hspace*{.5em} MaterialGreen
+      \vfill
+      \hspace{.5em} \printcolorvalue{MaterialGreen}
+      \vspace*{1em}
+    }
+  }
+  \colorbox{MaterialGreen600}{\parbox[b][10\baselineskip]{8em}{\hspace{1em}\ttfamily\color{white}\printcolorvalue{MaterialGreen600}\vspace*{1em}}}
 %      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=400, add change at=A200]{MaterialRed}
 %
 %      \colorpalette[color variant={50,100,200,...,900}, percent char={}, primary variant=500, add variant={A100,A200,A400,A700}, title text color=white, change at=300, add change at=A200]{MaterialPink}
