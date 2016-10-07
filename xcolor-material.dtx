@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 %
-% Copyright (C) 2015 by Jerick Órdenes Sepúlveda <os.jerick+xcolormaterial at gmail.com>
+% Copyright (C) 2016 by Jerick Órdenes Sepúlveda <os.jerick+xcolormaterial at gmail.com>
 % -------------------------------------------------------
 % 
 % This file may be distributed and/or modified under the
@@ -21,28 +21,26 @@
 %</driver>
 %<package>\NeedsTeXFormat{LaTeX2e}[2005/12/01]
 %<package>\ProvidesPackage{xcolor-material}
-%<*package>
-  [2015/11/07 v1.0 A package for accessing Google Material colors using the xcolor package]
-%</package>
+%<package>[2016/05/28 v0.1 A package for accessing Google Material colors using the xcolor package]
 %
 %<*driver>
 \documentclass[a4paper]{ltxdoc}
-\EnableCrossrefs         
+\EnableCrossrefs
 \CodelineIndex
 \RecordChanges
 
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{xcolor-material}[2015/11/07]
+\usepackage{xcolor-material}[2016/05/28]
 \usepackage[stretch=10]{microtype}
 \usepackage{lstdoc}
 \makeatletter
 \def\@part[#1]#2{\ifhyper\phantomsection\fi
-  \addcontentsline{toc}{part}{\sffamily #1}%
-  {\parindent\z@ \raggedright \interlinepenalty\@M
-    \sffamily \huge \bfseries \color{MaterialBlue700} #2\markboth{}{}\par}%
-  \nobreak\vskip 3ex\@afterheading}
+    \addcontentsline{toc}{part}{\sffamily #1}%
+    {\parindent\z@ \raggedright \interlinepenalty\@M
+        \sffamily \huge \bfseries \color{MaterialBlue700} #2\markboth{}{}\par}%
+    \nobreak\vskip 3ex\@afterheading}
 \makeatother
 \hypersetup{linkcolor=MaterialRed600, urlcolor=MaterialPink600}
 \usepackage{cleveref}
@@ -58,9 +56,9 @@
 
 \makeindex
 \begin{document}
-  \DocInput{xcolor-material.dtx}
-  \PrintChanges
-  \PrintIndex
+    \DocInput{xcolor-material.dtx}
+    \PrintChanges
+    \PrintIndex
 \end{document}
 %</driver>
 % \fi
@@ -84,9 +82,9 @@
 %   Right brace   \}     Tilde         \~}
 %
 %
-% \changes{v1.0}{2015/11/07}{Initial version}
+% \changes{v0.1}{2016/05/28}{Initial version}
 %
-% \GetFileInfo{xcolor-material.dtx}
+% \GetFileInfo{xcolor-material.sty}
 %
 % \DoNotIndex{\newcommand,\newenvironment}
 % 
@@ -94,14 +92,13 @@
 %\newbox\abstractbox
 %\setbox\abstractbox=\vbox{
 % \begin{abstract}
-% The \xmpkg{} package is built on the great \xcolorpkg{} package. It exists 
-% for providing an useful definition of the \google{} Material Design Color
-% Style Palette, available from
-% \url{https://www.google.com/design/spec/style/color.html}, for use in
-% document writing with \LaTeX{} and Friends.
+% The \xmpkg\ package is built on the great \xcolorpkg\ package. It exists 
+% for providing a useful definition of the \google\ Material Design Color
+% Palette, available from \url{https://material.google.com/style/color.html}, 
+% for it use in document writing with \LaTeX\ and Friends.
 % \end{abstract}}
-% \title{The \xmpkg{} package}
-% \author{Copyright\textcopyright{} 2015--, Jerick Órdenes Sepúlveda \\
+% \title{The \xmpkg\ package}
+% \author{Jerick Órdenes Sepúlveda \\
 % <\href{mailto:os.jerick+xcolor-material@gmail.com}%
 % {os.jerick+xcolormaterial(at)gmail.com}>}
 % \date{\filedate~~ Version \fileversion\ \box\abstractbox}
@@ -113,21 +110,117 @@
 %
 % \part{Usage}
 %
-% Put text here.
-%
 % \section{Installation}
 %
 % \subsection{Required Packages}
+% The \xmpkg\ package requires relatively up-to-date versions of the packages: 
+% \kvopkg\ and \xcolorpkg, which are distributed with any popular \TeX\ 
+% distributions. Both packages are loaded without any options.
 %
-% \subsection{Installing the \xmpkg{}}
+% \subsection{Installing the \xmpkg\ package}
+% If the package is released on \href{http://www.ctan.org}{CTAN}, the user
+% should be able to install it through the \TeX\ distribution package manager
+% available on its PC. Nevertheless, if the user needs to install the package 
+% manually, should run:
+% ^^A
+% \begin{verbatim}
+%   latex xcolor-material.ins\end{verbatim}
+% ^^A
+% and copy the generated file |xcolor-material.sty| to a path where \LaTeX\ can 
+% find it. To generate the documentation the user should run the following 
+% command twice.
+% ^^A
+% \begin{verbatim}
+%   pdflatex xcolor-material.dtx \end{verbatim}
 %
-% \section{Loading the \xmpkg{}}
+% \section{Loading the \xmpkg\ package}
+% Simply add the package declaration somewhere in the document preamble:
+% ^^A
+% \begin{verbatim}
+%   \usepackage{xcolor-material} \end{verbatim}
 %
-% \section{Package Options}
+% If the user wants to load the \kvopkg\ and \xcolorpkg\ packages with some 
+% options, can specify those options using the |\PassOptionsToPackage| 
+% command \emph{before} loading \xmpkg, or by loading those packages with their 
+% options \emph{before} loading the \xmpkg\ package.
 %
-% \section{Using the \xmpkg{} Colors}
+% \subsection{Package Options}
+% The \xmpkg\ currently offers only one option:
+% \begin{description}
+%   \item[\opt{prefix}|=|\meta{prefix}] Defines the prefix for all color names
+%   defined in the Google Material Color Palette; this is used for namespacing
+%   purposes. The default prefix is ``|Material|''.
+% \end{description}
+%
+% The main purpose of this option is to avoid conflicts with other existent 
+% color definitions. The |prefix| option allows custom prefix definition. For
+% instance, if the user wants to use the word `|myprefix|' as the color prefix, 
+% then must load the \xmpkg\ package with
+% ^^A
+% \begin{verbatim}
+%   \usepackage[prefix=myprefix]{xcolor-material}\end{verbatim}
+%
+% \section{Using the \xmpkg\ Colors}
+% Loading the \xmpkg\ defines all colors defined in the Google Material Color 
+% Palette, available at \url{https://material.google.com/style/color.html} at 
+% the global scope of the document. This package relies on the \xcolorpkg\, 
+% and the user should refer to its documentation for more details about using 
+% color in a document.
 %
 % \subsection{Color Names}
+% The Google Material Color Palette consists of another 19 color palettes (each 
+% one for one base color) and two colors not listed into a palette (|White| and 
+% |Black|), together forming a list of 256 colors. Each individual palette 
+% consists of 14 color variantions of the base color, except for |Brown|, 
+% |Grey|, and |Blue Grey| with 10. Every color variation have a number from the 
+% list \texttt{\{50, 100, 200, 300, 400, 500, 600, 700, 800, 900\}}  for the 
+% first ten colors or \emph{primary palette}, and from the list \texttt{\{A100, 
+% A200, A300, A400\}} for the last four or \emph{secondary palette}. The names 
+% of the base colors and their variations are listed in the table 
+% \ref{tab:colornames}.
+%
+% \begin{table}[b!]
+%   \centering
+%   \caption{Color names from the Google Material Color Palette and their 
+%   variations} \label{tab:colornames}
+%   \begin{tabular}{lc}
+%      \textbf{Base Color} & \textbf{Palettes}\\
+%      \hline
+%      |Red| & primary, secondary\\
+%      |Pink| & primary, secondary\\
+%      |Purple| & primary, secondary\\
+%      |Deep Purple| & primary, secondary\\
+%      |Indigo| & primary, secondary\\
+%      |Blue| & primary, secondary\\
+%      |Light Blue| & primary, secondary\\
+%      |Cyan| & primary, secondary\\
+%      |Teal| & primary, secondary\\
+%      |Green| & primary, secondary\\
+%      |Light Green| & primary, secondary\\
+%      |Lime| & primary, secondary\\
+%      |Yellow| & primary, secondary\\
+%      |Amber| & primary, secondary\\
+%      |Orange| & primary, secondary\\
+%      |Deep Orange| & primary, secondary\\
+%      |Brown| & secondary\\
+%      |Grey| & secondary\\
+%      |Blue Grey| & secondary
+%    \end{tabular}
+%\end{table}
+%
+% The name under which the \xmpkg\ package defines each Google Material color 
+% has the form `\meta{prefix}\meta{base name}\meta{variation}', where
+% \begin{itemize}
+%   \item \meta{prefix} corresponds to the prefix set via the the package option
+%   |prefix|,
+%   \item \meta{base name} is the official name of the base color (see table
+%   \ref{tab:colornames}), and
+%   \item \meta{variation} is the number of the color variation, e.g., |50| or 
+%   |A100|.
+% \end{itemize}
+% For example, by default (if a custom prefix is not defined), the |Blue 600| 
+% color of the palette will be available inside the document as 
+% ``|MaterialBlue600|''.
 %
 % \subsection{Color Palettes}
 %
@@ -148,13 +241,13 @@
 % \StopEventually{That's all!}
 %
 % \part{Implementation}
-% 
 %
 % I have used the word `|XCM|' followed by an `|@|' character for namespacing
 % purposes into the \xmpkg{} package source.
 %
 % \section{Required Packages}
-% The \xmpkg{} requires the \xcolorpkg{} and \kvopkg{} packages, both are loaded without any option:
+% The \xmpkg{} requires the \xcolorpkg{} and \kvopkg{} packages, both are 
+% loaded without any option:
 %
 %    \begin{macrocode}
 \RequirePackage{xcolor}[2007/01/21]
@@ -165,16 +258,16 @@
 % \url{https://www.ctan.org/pkg/xcolor}} is the package used to define and use
 % every single color in the \google{} Material Design Color Style Palette.
 % \kvopkg\footnote{The \kvopkg{} package is available from
-% \url{https://www.ctan.org/pkg/kvoptions}} is package that provide tools for
-% supporting options in key value format for package options.
+% \url{https://www.ctan.org/pkg/kvoptions}} is a package that provide tools for
+% supporting package options in a key-value format.
 %
 % \section{Package Options}
 % Setting up \kvopkg{} configuration:
 %
 %    \begin{macrocode}
 \SetupKeyvalOptions{
-    family=XCM,
-    prefix=XCM@
+  family=XCM,
+  prefix=XCM@
 }
 %    \end{macrocode}
 %
@@ -183,21 +276,22 @@
 %    \begin{macrocode}
 \DeclareStringOption[Material]{prefix}[Material]
 \DeclareDefaultOption{
-    \OptionNotUsed
-    \PackageError{xcolor-material}{Unknown `\CurrentOption' option.}
+  \OptionNotUsed
+  \PackageError{xcolor-material}{Unknown `\CurrentOption' option.}
 }
 \ProcessKeyvalOptions*
 %    \end{macrocode}
 %
 % Note that default value for this key is `|Material|'. Note also that package
-% checks for valid options, if an invalid option is provided package will throw
-% out a package error.
+% checks for valid options, if an invalid option is provided the package will 
+% throw out a package error.
 %
 % \section{Color Definitions}
 %
 % \begin{macro}{\XCM@definecolor}
-%   I have taken the idea from \textsf{xcolor-solarized}\footnote{\textsf{xcolor-solarized}
-    % package is available from \url{https://www.ctan.org/pkg/xcolor-solarized}}
+% I have taken the idea from the 
+% \textsf{xcolor-solarized}\footnote{\textsf{xcolor-solarized}
+% package is available from \url{https://www.ctan.org/pkg/xcolor-solarized}}
 % package of having a convenient internal macro for color definitions.
 %    \begin{macrocode}
 \newcommand\XCM@definecolor{\expandafter\definecolor\expandafter}
@@ -210,365 +304,367 @@
 %
 % \subsection{Red}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Red50}  {RGB}{255, 235, 238}
-\XCM@definecolor{\XCM@prefix Red100} {RGB}{255, 205, 210}
-\XCM@definecolor{\XCM@prefix Red200} {RGB}{239, 154, 154}
-\XCM@definecolor{\XCM@prefix Red300} {RGB}{229, 115, 115}
-\XCM@definecolor{\XCM@prefix Red400} {RGB}{239, 83, 80}
-\XCM@definecolor{\XCM@prefix Red500} {RGB}{244, 67, 54}
-\XCM@definecolor{\XCM@prefix Red600} {RGB}{229, 57, 53}
-\XCM@definecolor{\XCM@prefix Red700} {RGB}{211, 47, 47}
-\XCM@definecolor{\XCM@prefix Red800} {RGB}{198, 40, 40}
-\XCM@definecolor{\XCM@prefix Red900} {RGB}{183, 28, 28}
-\XCM@definecolor{\XCM@prefix RedA100}{RGB}{255, 138, 128}
-\XCM@definecolor{\XCM@prefix RedA200}{RGB}{255, 82, 82}
-\XCM@definecolor{\XCM@prefix RedA400}{RGB}{255, 23, 68}
-\XCM@definecolor{\XCM@prefix RedA700}{RGB}{213, 0, 0}
+\XCM@definecolor{\XCM@prefix Red50}  {HTML}{FFEBEE}
+\XCM@definecolor{\XCM@prefix Red100} {HTML}{FFCDD2}
+\XCM@definecolor{\XCM@prefix Red200} {HTML}{EF9A9A}
+\XCM@definecolor{\XCM@prefix Red300} {HTML}{E57373}
+\XCM@definecolor{\XCM@prefix Red400} {HTML}{EF5350}
+\XCM@definecolor{\XCM@prefix Red500} {HTML}{F44336}
+\XCM@definecolor{\XCM@prefix Red600} {HTML}{E53935}
+\XCM@definecolor{\XCM@prefix Red700} {HTML}{D32F2F}
+\XCM@definecolor{\XCM@prefix Red800} {HTML}{C62828}
+\XCM@definecolor{\XCM@prefix Red900} {HTML}{B71C1C}
+\XCM@definecolor{\XCM@prefix RedA100}{HTML}{FF8A80}
+\XCM@definecolor{\XCM@prefix RedA200}{HTML}{FF5252}
+\XCM@definecolor{\XCM@prefix RedA400}{HTML}{FF1744}
+\XCM@definecolor{\XCM@prefix RedA700}{HTML}{D50000}
 \XCM@definecolor{\XCM@prefix Red}{named}{\XCM@prefix Red500}
 %    \end{macrocode}
 %
 % \subsection{Pink}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Pink50}  {RGB}{252, 228, 236}
-\XCM@definecolor{\XCM@prefix Pink100} {RGB}{248, 187, 208}
-\XCM@definecolor{\XCM@prefix Pink200} {RGB}{244, 143, 177}
-\XCM@definecolor{\XCM@prefix Pink300} {RGB}{240, 98, 146}
-\XCM@definecolor{\XCM@prefix Pink400} {RGB}{236, 64, 122}
-\XCM@definecolor{\XCM@prefix Pink500} {RGB}{233, 30, 99}
-\XCM@definecolor{\XCM@prefix Pink600} {RGB}{216, 27, 96}
-\XCM@definecolor{\XCM@prefix Pink700} {RGB}{194, 24, 91}
-\XCM@definecolor{\XCM@prefix Pink800} {RGB}{173, 20, 87}
-\XCM@definecolor{\XCM@prefix Pink900} {RGB}{136, 14, 79}
-\XCM@definecolor{\XCM@prefix PinkA100}{RGB}{255, 128, 171}
-\XCM@definecolor{\XCM@prefix PinkA200}{RGB}{255, 64, 129}
-\XCM@definecolor{\XCM@prefix PinkA400}{RGB}{245, 0, 87}
-\XCM@definecolor{\XCM@prefix PinkA700}{RGB}{197, 17, 98}
+\XCM@definecolor{\XCM@prefix Pink50}  {HTML}{FCE4EC}
+\XCM@definecolor{\XCM@prefix Pink100} {HTML}{F8BBD0}
+\XCM@definecolor{\XCM@prefix Pink200} {HTML}{F48FB1}
+\XCM@definecolor{\XCM@prefix Pink300} {HTML}{F06292}
+\XCM@definecolor{\XCM@prefix Pink400} {HTML}{EC407A}
+\XCM@definecolor{\XCM@prefix Pink500} {HTML}{E91E63}
+\XCM@definecolor{\XCM@prefix Pink600} {HTML}{D81B60}
+\XCM@definecolor{\XCM@prefix Pink700} {HTML}{C2185B}
+\XCM@definecolor{\XCM@prefix Pink800} {HTML}{AD1457}
+\XCM@definecolor{\XCM@prefix Pink900} {HTML}{880E4F}
+\XCM@definecolor{\XCM@prefix PinkA100}{HTML}{FF80AB}
+\XCM@definecolor{\XCM@prefix PinkA200}{HTML}{FF4081}
+\XCM@definecolor{\XCM@prefix PinkA400}{HTML}{F50057}
+\XCM@definecolor{\XCM@prefix PinkA700}{HTML}{C51162}
 \XCM@definecolor{\XCM@prefix Pink}{named}{\XCM@prefix Pink500}
 %    \end{macrocode}
 %
 % \subsection{Purple}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Purple50}  {RGB}{243, 229, 245}
-\XCM@definecolor{\XCM@prefix Purple100} {RGB}{225, 190, 231}
-\XCM@definecolor{\XCM@prefix Purple200} {RGB}{206, 147, 216}
-\XCM@definecolor{\XCM@prefix Purple300} {RGB}{186, 104, 200}
-\XCM@definecolor{\XCM@prefix Purple400} {RGB}{171, 71, 188}
-\XCM@definecolor{\XCM@prefix Purple500} {RGB}{156, 39, 176}
-\XCM@definecolor{\XCM@prefix Purple600} {RGB}{142, 36, 170}
-\XCM@definecolor{\XCM@prefix Purple700} {RGB}{123, 31, 162}
-\XCM@definecolor{\XCM@prefix Purple800} {RGB}{106, 27, 154}
-\XCM@definecolor{\XCM@prefix Purple900} {RGB}{74, 20, 140}
-\XCM@definecolor{\XCM@prefix PurpleA100}{RGB}{234, 128, 252}
-\XCM@definecolor{\XCM@prefix PurpleA200}{RGB}{224, 64, 251}
-\XCM@definecolor{\XCM@prefix PurpleA400}{RGB}{213, 0, 249}
-\XCM@definecolor{\XCM@prefix PurpleA700}{RGB}{170, 0, 255}
+\XCM@definecolor{\XCM@prefix Purple50}  {HTML}{F3E5F5}
+\XCM@definecolor{\XCM@prefix Purple100} {HTML}{E1BEE7}
+\XCM@definecolor{\XCM@prefix Purple200} {HTML}{CE93D8}
+\XCM@definecolor{\XCM@prefix Purple300} {HTML}{BA68C8}
+\XCM@definecolor{\XCM@prefix Purple400} {HTML}{AB47BC}
+\XCM@definecolor{\XCM@prefix Purple500} {HTML}{9C27B0}
+\XCM@definecolor{\XCM@prefix Purple600} {HTML}{8E24AA}
+\XCM@definecolor{\XCM@prefix Purple700} {HTML}{7B1FA2}
+\XCM@definecolor{\XCM@prefix Purple800} {HTML}{6A1B9A}
+\XCM@definecolor{\XCM@prefix Purple900} {HTML}{4A148C}
+\XCM@definecolor{\XCM@prefix PurpleA100}{HTML}{EA80FC}
+\XCM@definecolor{\XCM@prefix PurpleA200}{HTML}{E040FB}
+\XCM@definecolor{\XCM@prefix PurpleA400}{HTML}{D500F9}
+\XCM@definecolor{\XCM@prefix PurpleA700}{HTML}{AA00FF}
 \XCM@definecolor{\XCM@prefix Purple}{named}{\XCM@prefix Purple500}
 %    \end{macrocode}
 %
 % \subsection{Deep Purple}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix DeepPurple50}  {RGB}{237, 231, 246}
-\XCM@definecolor{\XCM@prefix DeepPurple100} {RGB}{209, 196, 233}
-\XCM@definecolor{\XCM@prefix DeepPurple200} {RGB}{179, 157, 219}
-\XCM@definecolor{\XCM@prefix DeepPurple300} {RGB}{149, 117, 205}
-\XCM@definecolor{\XCM@prefix DeepPurple400} {RGB}{126, 87, 194}
-\XCM@definecolor{\XCM@prefix DeepPurple500} {RGB}{103, 58, 183}
-\XCM@definecolor{\XCM@prefix DeepPurple600} {RGB}{94, 53, 177}
-\XCM@definecolor{\XCM@prefix DeepPurple700} {RGB}{81, 45, 168}
-\XCM@definecolor{\XCM@prefix DeepPurple800} {RGB}{69, 39, 160}
-\XCM@definecolor{\XCM@prefix DeepPurple900} {RGB}{49, 27, 146}
-\XCM@definecolor{\XCM@prefix DeepPurpleA100}{RGB}{179, 136, 255}
-\XCM@definecolor{\XCM@prefix DeepPurpleA200}{RGB}{124, 77, 255}
-\XCM@definecolor{\XCM@prefix DeepPurpleA400}{RGB}{101, 31, 255}
-\XCM@definecolor{\XCM@prefix DeepPurpleA700}{RGB}{98, 0, 234}
+\XCM@definecolor{\XCM@prefix DeepPurple50}  {HTML}{EDE7F6}
+\XCM@definecolor{\XCM@prefix DeepPurple100} {HTML}{D1C4E9}
+\XCM@definecolor{\XCM@prefix DeepPurple200} {HTML}{B39DDB}
+\XCM@definecolor{\XCM@prefix DeepPurple300} {HTML}{9575CD}
+\XCM@definecolor{\XCM@prefix DeepPurple400} {HTML}{7E57C2}
+\XCM@definecolor{\XCM@prefix DeepPurple500} {HTML}{673AB7}
+\XCM@definecolor{\XCM@prefix DeepPurple600} {HTML}{5E35B1}
+\XCM@definecolor{\XCM@prefix DeepPurple700} {HTML}{512DA8}
+\XCM@definecolor{\XCM@prefix DeepPurple800} {HTML}{4527A0}
+\XCM@definecolor{\XCM@prefix DeepPurple900} {HTML}{311B92}
+\XCM@definecolor{\XCM@prefix DeepPurpleA100}{HTML}{B388FF}
+\XCM@definecolor{\XCM@prefix DeepPurpleA200}{HTML}{7C4DFF}
+\XCM@definecolor{\XCM@prefix DeepPurpleA400}{HTML}{651FFF}
+\XCM@definecolor{\XCM@prefix DeepPurpleA700}{HTML}{6200EA}
 \XCM@definecolor{\XCM@prefix DeepPurple}{named}{\XCM@prefix DeepPurple500}
 %    \end{macrocode}
 %
 % \subsection{Indigo}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Indigo50}  {RGB}{232, 234, 246}
-\XCM@definecolor{\XCM@prefix Indigo100} {RGB}{197, 202, 233}
-\XCM@definecolor{\XCM@prefix Indigo200} {RGB}{159, 168, 218}
-\XCM@definecolor{\XCM@prefix Indigo300} {RGB}{121, 134, 203}
-\XCM@definecolor{\XCM@prefix Indigo400} {RGB}{92, 107, 192}
-\XCM@definecolor{\XCM@prefix Indigo500} {RGB}{63, 81, 181}
-\XCM@definecolor{\XCM@prefix Indigo600} {RGB}{57, 73, 171}
-\XCM@definecolor{\XCM@prefix Indigo700} {RGB}{48, 63, 159}
-\XCM@definecolor{\XCM@prefix Indigo800} {RGB}{40, 53, 147}
-\XCM@definecolor{\XCM@prefix Indigo900} {RGB}{26, 35, 126}
-\XCM@definecolor{\XCM@prefix IndigoA100}{RGB}{140, 158, 255}
-\XCM@definecolor{\XCM@prefix IndigoA200}{RGB}{83, 109, 254}
-\XCM@definecolor{\XCM@prefix IndigoA400}{RGB}{61, 90, 254}
-\XCM@definecolor{\XCM@prefix IndigoA700}{RGB}{48, 79, 254}
+\XCM@definecolor{\XCM@prefix Indigo50}  {HTML}{E8EAF6}
+\XCM@definecolor{\XCM@prefix Indigo100} {HTML}{C5CAE9}
+\XCM@definecolor{\XCM@prefix Indigo200} {HTML}{9FA8DA}
+\XCM@definecolor{\XCM@prefix Indigo300} {HTML}{7986CB}
+\XCM@definecolor{\XCM@prefix Indigo400} {HTML}{5C6BC0}
+\XCM@definecolor{\XCM@prefix Indigo500} {HTML}{3F51B5}
+\XCM@definecolor{\XCM@prefix Indigo600} {HTML}{3949AB}
+\XCM@definecolor{\XCM@prefix Indigo700} {HTML}{303F9F}
+\XCM@definecolor{\XCM@prefix Indigo800} {HTML}{283593}
+\XCM@definecolor{\XCM@prefix Indigo900} {HTML}{1A237E}
+\XCM@definecolor{\XCM@prefix IndigoA100}{HTML}{8C9EFF}
+\XCM@definecolor{\XCM@prefix IndigoA200}{HTML}{536DFE}
+\XCM@definecolor{\XCM@prefix IndigoA400}{HTML}{3D5AFE}
+\XCM@definecolor{\XCM@prefix IndigoA700}{HTML}{304FFE}
 \XCM@definecolor{\XCM@prefix Indigo}{named}{\XCM@prefix Indigo500}
 %    \end{macrocode}
 %
 % \subsection{Blue}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Blue50}  {RGB}{227, 242, 253}
-\XCM@definecolor{\XCM@prefix Blue100} {RGB}{187, 222, 251}
-\XCM@definecolor{\XCM@prefix Blue200} {RGB}{144, 202, 249}
-\XCM@definecolor{\XCM@prefix Blue300} {RGB}{100, 181, 246}
-\XCM@definecolor{\XCM@prefix Blue400} {RGB}{66, 165, 245}
-\XCM@definecolor{\XCM@prefix Blue500} {RGB}{33, 150, 243}
-\XCM@definecolor{\XCM@prefix Blue600} {RGB}{30, 136, 229}
-\XCM@definecolor{\XCM@prefix Blue700} {RGB}{25, 118, 210}
-\XCM@definecolor{\XCM@prefix Blue800} {RGB}{21, 101, 192}
-\XCM@definecolor{\XCM@prefix Blue900} {RGB}{13, 71, 161}
-\XCM@definecolor{\XCM@prefix BlueA100}{RGB}{130, 177, 255}
-\XCM@definecolor{\XCM@prefix BlueA200}{RGB}{68, 138, 255}
-\XCM@definecolor{\XCM@prefix BlueA400}{RGB}{41, 121, 255}
-\XCM@definecolor{\XCM@prefix BlueA700}{RGB}{41, 98, 255}
+\XCM@definecolor{\XCM@prefix Blue50}  {HTML}{E3F2FD}
+\XCM@definecolor{\XCM@prefix Blue100} {HTML}{BBDEFB}
+\XCM@definecolor{\XCM@prefix Blue200} {HTML}{90CAF9}
+\XCM@definecolor{\XCM@prefix Blue300} {HTML}{64B5F6}
+\XCM@definecolor{\XCM@prefix Blue400} {HTML}{42A5F5}
+\XCM@definecolor{\XCM@prefix Blue500} {HTML}{2196F3}
+\XCM@definecolor{\XCM@prefix Blue600} {HTML}{1E88E5}
+\XCM@definecolor{\XCM@prefix Blue700} {HTML}{1976D2}
+\XCM@definecolor{\XCM@prefix Blue800} {HTML}{1565C0}
+\XCM@definecolor{\XCM@prefix Blue900} {HTML}{0D47A1}
+\XCM@definecolor{\XCM@prefix BlueA100}{HTML}{82B1FF}
+\XCM@definecolor{\XCM@prefix BlueA200}{HTML}{448AFF}
+\XCM@definecolor{\XCM@prefix BlueA400}{HTML}{2979FF}
+\XCM@definecolor{\XCM@prefix BlueA700}{HTML}{2962FF}
 \XCM@definecolor{\XCM@prefix Blue}{named}{\XCM@prefix Blue500}
 %    \end{macrocode}
 %
 % \subsection{Light Blue}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix LightBlue50}  {RGB}{225, 245, 254}
-\XCM@definecolor{\XCM@prefix LightBlue100} {RGB}{179, 229, 252}
-\XCM@definecolor{\XCM@prefix LightBlue200} {RGB}{129, 212, 250}
-\XCM@definecolor{\XCM@prefix LightBlue300} {RGB}{79, 195, 247}
-\XCM@definecolor{\XCM@prefix LightBlue400} {RGB}{41, 182, 246}
-\XCM@definecolor{\XCM@prefix LightBlue500} {RGB}{3, 169, 244}
-\XCM@definecolor{\XCM@prefix LightBlue600} {RGB}{3, 155, 229}
-\XCM@definecolor{\XCM@prefix LightBlue700} {RGB}{2, 136, 209}
-\XCM@definecolor{\XCM@prefix LightBlue800} {RGB}{2, 119, 189}
-\XCM@definecolor{\XCM@prefix LightBlue900} {RGB}{1, 87, 155}
-\XCM@definecolor{\XCM@prefix LightBlueA100}{RGB}{128, 216, 255}
-\XCM@definecolor{\XCM@prefix LightBlueA200}{RGB}{64, 196, 255}
-\XCM@definecolor{\XCM@prefix LightBlueA400}{RGB}{0, 176, 255}
-\XCM@definecolor{\XCM@prefix LightBlueA700}{RGB}{0, 145, 234}
+\XCM@definecolor{\XCM@prefix LightBlue50}  {HTML}{E1F5FE}
+\XCM@definecolor{\XCM@prefix LightBlue100} {HTML}{B3E5FC}
+\XCM@definecolor{\XCM@prefix LightBlue200} {HTML}{81D4FA}
+\XCM@definecolor{\XCM@prefix LightBlue300} {HTML}{4FC3F7}
+\XCM@definecolor{\XCM@prefix LightBlue400} {HTML}{29B6F6}
+\XCM@definecolor{\XCM@prefix LightBlue500} {HTML}{03A9F4}
+\XCM@definecolor{\XCM@prefix LightBlue600} {HTML}{039BE5}
+\XCM@definecolor{\XCM@prefix LightBlue700} {HTML}{0288D1}
+\XCM@definecolor{\XCM@prefix LightBlue800} {HTML}{0277BD}
+\XCM@definecolor{\XCM@prefix LightBlue900} {HTML}{01579B}
+\XCM@definecolor{\XCM@prefix LightBlueA100}{HTML}{80D8FF}
+\XCM@definecolor{\XCM@prefix LightBlueA200}{HTML}{40C4FF}
+\XCM@definecolor{\XCM@prefix LightBlueA400}{HTML}{00B0FF}
+\XCM@definecolor{\XCM@prefix LightBlueA700}{HTML}{0091EA}
 \XCM@definecolor{\XCM@prefix LightBlue}{named}{\XCM@prefix LightBlue500}
 %    \end{macrocode}
 %
 % \subsection{Cyan}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Cyan50}  {RGB}{224, 247, 250}
-\XCM@definecolor{\XCM@prefix Cyan100} {RGB}{178, 235, 242}
-\XCM@definecolor{\XCM@prefix Cyan200} {RGB}{128, 222, 234}
-\XCM@definecolor{\XCM@prefix Cyan300} {RGB}{77, 208, 225}
-\XCM@definecolor{\XCM@prefix Cyan400} {RGB}{38, 198, 218}
-\XCM@definecolor{\XCM@prefix Cyan500} {RGB}{0, 188, 212}
-\XCM@definecolor{\XCM@prefix Cyan600} {RGB}{0, 172, 193}
-\XCM@definecolor{\XCM@prefix Cyan700} {RGB}{0, 151, 167}
-\XCM@definecolor{\XCM@prefix Cyan800} {RGB}{0, 131, 143}
-\XCM@definecolor{\XCM@prefix Cyan900} {RGB}{0, 96, 100}
-\XCM@definecolor{\XCM@prefix CyanA100}{RGB}{132, 255, 255}
-\XCM@definecolor{\XCM@prefix CyanA200}{RGB}{24, 255, 255}
-\XCM@definecolor{\XCM@prefix CyanA400}{RGB}{0, 229, 255}
-\XCM@definecolor{\XCM@prefix CyanA700}{RGB}{0, 184, 212}
+\XCM@definecolor{\XCM@prefix Cyan50}  {HTML}{E0F7FA}
+\XCM@definecolor{\XCM@prefix Cyan100} {HTML}{B2EBF2}
+\XCM@definecolor{\XCM@prefix Cyan200} {HTML}{80DEEA}
+\XCM@definecolor{\XCM@prefix Cyan300} {HTML}{4DD0E1}
+\XCM@definecolor{\XCM@prefix Cyan400} {HTML}{26C6DA}
+\XCM@definecolor{\XCM@prefix Cyan500} {HTML}{00BCD4}
+\XCM@definecolor{\XCM@prefix Cyan600} {HTML}{00ACC1}
+\XCM@definecolor{\XCM@prefix Cyan700} {HTML}{0097A7}
+\XCM@definecolor{\XCM@prefix Cyan800} {HTML}{00838F}
+\XCM@definecolor{\XCM@prefix Cyan900} {HTML}{006064}
+\XCM@definecolor{\XCM@prefix CyanA100}{HTML}{84FFFF}
+\XCM@definecolor{\XCM@prefix CyanA200}{HTML}{18FFFF}
+\XCM@definecolor{\XCM@prefix CyanA400}{HTML}{00E5FF}
+\XCM@definecolor{\XCM@prefix CyanA700}{HTML}{00B8D4}
 \XCM@definecolor{\XCM@prefix Cyan}{named}{\XCM@prefix Cyan500}
 %    \end{macrocode}
 %
 % \subsection{Teal}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Teal50}  {RGB}{224, 242, 241}
-\XCM@definecolor{\XCM@prefix Teal100} {RGB}{178, 223, 219}
-\XCM@definecolor{\XCM@prefix Teal200} {RGB}{128, 203, 196}
-\XCM@definecolor{\XCM@prefix Teal300} {RGB}{77, 182, 172}
-\XCM@definecolor{\XCM@prefix Teal400} {RGB}{38, 166, 154}
-\XCM@definecolor{\XCM@prefix Teal500} {RGB}{0, 150, 136}
-\XCM@definecolor{\XCM@prefix Teal600} {RGB}{0, 137, 123}
-\XCM@definecolor{\XCM@prefix Teal700} {RGB}{0, 121, 107}
-\XCM@definecolor{\XCM@prefix Teal800} {RGB}{0, 105, 92}
-\XCM@definecolor{\XCM@prefix Teal900} {RGB}{0, 77, 64}
-\XCM@definecolor{\XCM@prefix TealA100}{RGB}{167, 255, 235}
-\XCM@definecolor{\XCM@prefix TealA200}{RGB}{100, 255, 218}
-\XCM@definecolor{\XCM@prefix TealA400}{RGB}{29, 233, 182}
-\XCM@definecolor{\XCM@prefix TealA700}{RGB}{0, 191, 165}
+\XCM@definecolor{\XCM@prefix Teal50}  {HTML}{E0F2F1}
+\XCM@definecolor{\XCM@prefix Teal100} {HTML}{B2DFDB}
+\XCM@definecolor{\XCM@prefix Teal200} {HTML}{80CBC4}
+\XCM@definecolor{\XCM@prefix Teal300} {HTML}{4DB6AC}
+\XCM@definecolor{\XCM@prefix Teal400} {HTML}{26A69A}
+\XCM@definecolor{\XCM@prefix Teal500} {HTML}{009688}
+\XCM@definecolor{\XCM@prefix Teal600} {HTML}{00897B}
+\XCM@definecolor{\XCM@prefix Teal700} {HTML}{00796B}
+\XCM@definecolor{\XCM@prefix Teal800} {HTML}{00695C}
+\XCM@definecolor{\XCM@prefix Teal900} {HTML}{004D40}
+\XCM@definecolor{\XCM@prefix TealA100}{HTML}{A7FFEB}
+\XCM@definecolor{\XCM@prefix TealA200}{HTML}{64FFDA}
+\XCM@definecolor{\XCM@prefix TealA400}{HTML}{1DE9B6}
+\XCM@definecolor{\XCM@prefix TealA700}{HTML}{00BFA5}
 \XCM@definecolor{\XCM@prefix Teal}{named}{\XCM@prefix Teal500}
 %    \end{macrocode}
 %
 % \subsection{Green}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Green50}  {RGB}{232, 245, 233}
-\XCM@definecolor{\XCM@prefix Green100} {RGB}{200, 230, 201}
-\XCM@definecolor{\XCM@prefix Green200} {RGB}{165, 214, 167}
-\XCM@definecolor{\XCM@prefix Green300} {RGB}{129, 199, 132}
-\XCM@definecolor{\XCM@prefix Green400} {RGB}{102, 187, 106}
-\XCM@definecolor{\XCM@prefix Green500} {RGB}{76, 175, 80}
-\XCM@definecolor{\XCM@prefix Green600} {RGB}{67, 160, 71}
-\XCM@definecolor{\XCM@prefix Green700} {RGB}{56, 142, 60}
-\XCM@definecolor{\XCM@prefix Green800} {RGB}{46, 125, 50}
-\XCM@definecolor{\XCM@prefix Green900} {RGB}{27, 94, 32}
-\XCM@definecolor{\XCM@prefix GreenA100}{RGB}{185, 246, 202}
-\XCM@definecolor{\XCM@prefix GreenA200}{RGB}{105, 240, 174}
-\XCM@definecolor{\XCM@prefix GreenA400}{RGB}{0, 230, 11}
-\XCM@definecolor{\XCM@prefix GreenA700}{RGB}{0, 200, 83}
+\XCM@definecolor{\XCM@prefix Green50}  {HTML}{E8F5E9}
+\XCM@definecolor{\XCM@prefix Green100} {HTML}{C8E6C9}
+\XCM@definecolor{\XCM@prefix Green200} {HTML}{A5D6A7}
+\XCM@definecolor{\XCM@prefix Green300} {HTML}{81C784}
+\XCM@definecolor{\XCM@prefix Green400} {HTML}{66BB6A}
+\XCM@definecolor{\XCM@prefix Green500} {HTML}{4CAF50}
+\XCM@definecolor{\XCM@prefix Green600} {HTML}{43A047}
+\XCM@definecolor{\XCM@prefix Green700} {HTML}{388E3C}
+\XCM@definecolor{\XCM@prefix Green800} {HTML}{2E7D32}
+\XCM@definecolor{\XCM@prefix Green900} {HTML}{1B5E20}
+\XCM@definecolor{\XCM@prefix GreenA100}{HTML}{B9F6CA}
+\XCM@definecolor{\XCM@prefix GreenA200}{HTML}{69F0AE}
+\XCM@definecolor{\XCM@prefix GreenA400}{HTML}{00E676}
+\XCM@definecolor{\XCM@prefix GreenA700}{HTML}{00C853}
 \XCM@definecolor{\XCM@prefix Green}{named}{\XCM@prefix Green500}
 %    \end{macrocode}
 %
 % \subsection{Light Green}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix LightGreen50}  {RGB}{241, 248, 233}
-\XCM@definecolor{\XCM@prefix LightGreen100} {RGB}{220, 237, 200}
-\XCM@definecolor{\XCM@prefix LightGreen200} {RGB}{197, 225, 165}
-\XCM@definecolor{\XCM@prefix LightGreen300} {RGB}{174, 213, 129}
-\XCM@definecolor{\XCM@prefix LightGreen400} {RGB}{156, 204, 101}
-\XCM@definecolor{\XCM@prefix LightGreen500} {RGB}{139, 195, 74}
-\XCM@definecolor{\XCM@prefix LightGreen600} {RGB}{124, 179, 66}
-\XCM@definecolor{\XCM@prefix LightGreen700} {RGB}{104, 159, 56}
-\XCM@definecolor{\XCM@prefix LightGreen800} {RGB}{85, 139, 47}
-\XCM@definecolor{\XCM@prefix LightGreen900} {RGB}{51, 105, 30}
-\XCM@definecolor{\XCM@prefix LightGreenA100}{RGB}{204, 255, 144}
-\XCM@definecolor{\XCM@prefix LightGreenA200}{RGB}{178, 255, 89}
-\XCM@definecolor{\XCM@prefix LightGreenA400}{RGB}{118, 255, 3}
-\XCM@definecolor{\XCM@prefix LightGreenA700}{RGB}{100, 221, 23}
+\XCM@definecolor{\XCM@prefix LightGreen50}  {HTML}{F1F8E9}
+\XCM@definecolor{\XCM@prefix LightGreen100} {HTML}{DCEDC8}
+\XCM@definecolor{\XCM@prefix LightGreen200} {HTML}{C5E1A5}
+\XCM@definecolor{\XCM@prefix LightGreen300} {HTML}{AED581}
+\XCM@definecolor{\XCM@prefix LightGreen400} {HTML}{9CCC65}
+\XCM@definecolor{\XCM@prefix LightGreen500} {HTML}{8BC34A}
+\XCM@definecolor{\XCM@prefix LightGreen600} {HTML}{7CB342}
+\XCM@definecolor{\XCM@prefix LightGreen700} {HTML}{689F38}
+\XCM@definecolor{\XCM@prefix LightGreen800} {HTML}{558B2F}
+\XCM@definecolor{\XCM@prefix LightGreen900} {HTML}{33691E}
+\XCM@definecolor{\XCM@prefix LightGreenA100}{HTML}{CCFF90}
+\XCM@definecolor{\XCM@prefix LightGreenA200}{HTML}{B2FF59}
+\XCM@definecolor{\XCM@prefix LightGreenA400}{HTML}{76FF03}
+\XCM@definecolor{\XCM@prefix LightGreenA700}{HTML}{64DD17}
 \XCM@definecolor{\XCM@prefix LightGreen}{named}{\XCM@prefix LightGreen500}
 %    \end{macrocode}
 %
 % \subsection{Lime}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Lime50}  {RGB}{249, 251, 231}
-\XCM@definecolor{\XCM@prefix Lime100} {RGB}{240, 244, 195}
-\XCM@definecolor{\XCM@prefix Lime200} {RGB}{230, 238, 156}
-\XCM@definecolor{\XCM@prefix Lime300} {RGB}{220, 231, 117}
-\XCM@definecolor{\XCM@prefix Lime400} {RGB}{212, 225, 87}
-\XCM@definecolor{\XCM@prefix Lime500} {RGB}{205, 220, 57}
-\XCM@definecolor{\XCM@prefix Lime600} {RGB}{192, 202, 51}
-\XCM@definecolor{\XCM@prefix Lime700} {RGB}{175, 180, 43}
-\XCM@definecolor{\XCM@prefix Lime800} {RGB}{158, 157, 36}
-\XCM@definecolor{\XCM@prefix Lime900} {RGB}{130, 119, 23}
-\XCM@definecolor{\XCM@prefix LimeA100}{RGB}{244, 255, 129}
-\XCM@definecolor{\XCM@prefix LimeA200}{RGB}{238, 255, 65}
-\XCM@definecolor{\XCM@prefix LimeA400}{RGB}{198, 255, 0}
-\XCM@definecolor{\XCM@prefix LimeA700}{RGB}{174, 234, 0}
+\XCM@definecolor{\XCM@prefix Lime50}  {HTML}{F9FBE7}
+\XCM@definecolor{\XCM@prefix Lime100} {HTML}{F0F4C3}
+\XCM@definecolor{\XCM@prefix Lime200} {HTML}{E6EE9C}
+\XCM@definecolor{\XCM@prefix Lime300} {HTML}{DCE775}
+\XCM@definecolor{\XCM@prefix Lime400} {HTML}{D4E157}
+\XCM@definecolor{\XCM@prefix Lime500} {HTML}{CDDC39}
+\XCM@definecolor{\XCM@prefix Lime600} {HTML}{C0CA33}
+\XCM@definecolor{\XCM@prefix Lime700} {HTML}{AFB42B}
+\XCM@definecolor{\XCM@prefix Lime800} {HTML}{9E9D24}
+\XCM@definecolor{\XCM@prefix Lime900} {HTML}{827717}
+\XCM@definecolor{\XCM@prefix LimeA100}{HTML}{F4FF81}
+\XCM@definecolor{\XCM@prefix LimeA200}{HTML}{EEFF41}
+\XCM@definecolor{\XCM@prefix LimeA400}{HTML}{C6FF00}
+\XCM@definecolor{\XCM@prefix LimeA700}{HTML}{AEEA00}
 \XCM@definecolor{\XCM@prefix Lime}{named}{\XCM@prefix Lime500}
 %    \end{macrocode}
 %
 % \subsection{Yellow}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Yellow50}  {RGB}{255, 253, 231}
-\XCM@definecolor{\XCM@prefix Yellow100} {RGB}{255, 249, 196}
-\XCM@definecolor{\XCM@prefix Yellow200} {RGB}{255, 245, 157}
-\XCM@definecolor{\XCM@prefix Yellow300} {RGB}{255, 241, 118}
-\XCM@definecolor{\XCM@prefix Yellow400} {RGB}{255, 238, 88}
-\XCM@definecolor{\XCM@prefix Yellow500} {RGB}{255, 235, 59}
-\XCM@definecolor{\XCM@prefix Yellow600} {RGB}{253, 216, 53}
-\XCM@definecolor{\XCM@prefix Yellow700} {RGB}{251, 192, 45}
-\XCM@definecolor{\XCM@prefix Yellow800} {RGB}{249, 168, 37}
-\XCM@definecolor{\XCM@prefix Yellow900} {RGB}{245, 127, 23}
-\XCM@definecolor{\XCM@prefix YellowA100}{RGB}{255, 255, 141}
-\XCM@definecolor{\XCM@prefix YellowA200}{RGB}{255, 255, 0}
-\XCM@definecolor{\XCM@prefix YellowA400}{RGB}{255, 234, 0}
-\XCM@definecolor{\XCM@prefix YellowA700}{RGB}{255, 214, 0}
+\XCM@definecolor{\XCM@prefix Yellow50}  {HTML}{FFFDE7}
+\XCM@definecolor{\XCM@prefix Yellow100} {HTML}{FFF9C4}
+\XCM@definecolor{\XCM@prefix Yellow200} {HTML}{FFF59D}
+\XCM@definecolor{\XCM@prefix Yellow300} {HTML}{FFF176}
+\XCM@definecolor{\XCM@prefix Yellow400} {HTML}{FFEE58}
+\XCM@definecolor{\XCM@prefix Yellow500} {HTML}{FFEB3B}
+\XCM@definecolor{\XCM@prefix Yellow600} {HTML}{FDD835}
+\XCM@definecolor{\XCM@prefix Yellow700} {HTML}{FBC02D}
+\XCM@definecolor{\XCM@prefix Yellow800} {HTML}{F9A825}
+\XCM@definecolor{\XCM@prefix Yellow900} {HTML}{F57F17}
+\XCM@definecolor{\XCM@prefix YellowA100}{HTML}{FFFF8D}
+\XCM@definecolor{\XCM@prefix YellowA200}{HTML}{FFFF00}
+\XCM@definecolor{\XCM@prefix YellowA400}{HTML}{FFEA00}
+\XCM@definecolor{\XCM@prefix YellowA700}{HTML}{FFD600}
 \XCM@definecolor{\XCM@prefix Yellow}{named}{\XCM@prefix Yellow500}
 %    \end{macrocode}
 %
 % \subsection{Amber}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Amber50}  {RGB}{255, 248, 225}
-\XCM@definecolor{\XCM@prefix Amber100} {RGB}{255, 236, 179}
-\XCM@definecolor{\XCM@prefix Amber200} {RGB}{255, 224, 130}
-\XCM@definecolor{\XCM@prefix Amber300} {RGB}{255, 213, 79}
-\XCM@definecolor{\XCM@prefix Amber400} {RGB}{255, 202, 40}
-\XCM@definecolor{\XCM@prefix Amber500} {RGB}{255, 193, 7}
-\XCM@definecolor{\XCM@prefix Amber600} {RGB}{255, 179, 0}
-\XCM@definecolor{\XCM@prefix Amber700} {RGB}{255, 160, 0}
-\XCM@definecolor{\XCM@prefix Amber800} {RGB}{255, 143, 0}
-\XCM@definecolor{\XCM@prefix Amber900} {RGB}{255, 111, 0}
-\XCM@definecolor{\XCM@prefix AmberA100}{RGB}{255, 229, 127}
-\XCM@definecolor{\XCM@prefix AmberA200}{RGB}{255, 215, 64}
-\XCM@definecolor{\XCM@prefix AmberA400}{RGB}{255, 196, 0}
-\XCM@definecolor{\XCM@prefix AmberA700}{RGB}{255, 171, 0}
+\XCM@definecolor{\XCM@prefix Amber50}  {HTML}{FFF8E1}
+\XCM@definecolor{\XCM@prefix Amber100} {HTML}{FFECB3}
+\XCM@definecolor{\XCM@prefix Amber200} {HTML}{FFE082}
+\XCM@definecolor{\XCM@prefix Amber300} {HTML}{FFD54F}
+\XCM@definecolor{\XCM@prefix Amber400} {HTML}{FFCA28}
+\XCM@definecolor{\XCM@prefix Amber500} {HTML}{FFC107}
+\XCM@definecolor{\XCM@prefix Amber600} {HTML}{FFB300}
+\XCM@definecolor{\XCM@prefix Amber700} {HTML}{FFA000}
+\XCM@definecolor{\XCM@prefix Amber800} {HTML}{FF8F00}
+\XCM@definecolor{\XCM@prefix Amber900} {HTML}{FF6F00}
+\XCM@definecolor{\XCM@prefix AmberA100}{HTML}{FFE57F}
+\XCM@definecolor{\XCM@prefix AmberA200}{HTML}{FFD740}
+\XCM@definecolor{\XCM@prefix AmberA400}{HTML}{FFC400}
+\XCM@definecolor{\XCM@prefix AmberA700}{HTML}{FFAB00}
 \XCM@definecolor{\XCM@prefix Amber}{named}{\XCM@prefix Amber500}
 %    \end{macrocode}
 %
 % \subsection{Orange}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Orange50}  {RGB}{255, 243, 224}
-\XCM@definecolor{\XCM@prefix Orange100} {RGB}{255, 224, 178}
-\XCM@definecolor{\XCM@prefix Orange200} {RGB}{255, 204, 128}
-\XCM@definecolor{\XCM@prefix Orange300} {RGB}{255, 183, 77}
-\XCM@definecolor{\XCM@prefix Orange400} {RGB}{255, 167, 38}
-\XCM@definecolor{\XCM@prefix Orange500} {RGB}{255, 152, 0}
-\XCM@definecolor{\XCM@prefix Orange600} {RGB}{251, 140, 0}
-\XCM@definecolor{\XCM@prefix Orange700} {RGB}{245, 124, 0}
-\XCM@definecolor{\XCM@prefix Orange800} {RGB}{239, 108, 0}
-\XCM@definecolor{\XCM@prefix Orange900} {RGB}{230, 81, 0}
-\XCM@definecolor{\XCM@prefix OrangeA100}{RGB}{255, 209, 128}
-\XCM@definecolor{\XCM@prefix OrangeA200}{RGB}{255, 171, 64}
-\XCM@definecolor{\XCM@prefix OrangeA400}{RGB}{255, 145, 0}
-\XCM@definecolor{\XCM@prefix OrangeA700}{RGB}{255, 109, 0}
+\XCM@definecolor{\XCM@prefix Orange50}  {HTML}{FFF3E0}
+\XCM@definecolor{\XCM@prefix Orange100} {HTML}{FFE0B2}
+\XCM@definecolor{\XCM@prefix Orange200} {HTML}{FFCC80}
+\XCM@definecolor{\XCM@prefix Orange300} {HTML}{FFB74D}
+\XCM@definecolor{\XCM@prefix Orange400} {HTML}{FFA726}
+\XCM@definecolor{\XCM@prefix Orange500} {HTML}{FF9800}
+\XCM@definecolor{\XCM@prefix Orange600} {HTML}{FB8C00}
+\XCM@definecolor{\XCM@prefix Orange700} {HTML}{F57C00}
+\XCM@definecolor{\XCM@prefix Orange800} {HTML}{EF6C00}
+\XCM@definecolor{\XCM@prefix Orange900} {HTML}{E65100}
+\XCM@definecolor{\XCM@prefix OrangeA100}{HTML}{FFD180}
+\XCM@definecolor{\XCM@prefix OrangeA200}{HTML}{FFAB40}
+\XCM@definecolor{\XCM@prefix OrangeA400}{HTML}{FF9100}
+\XCM@definecolor{\XCM@prefix OrangeA700}{HTML}{FF6D00}
 \XCM@definecolor{\XCM@prefix Orange}{named}{\XCM@prefix Orange500}
 %    \end{macrocode}
 %
 % \subsection{Deep Orange}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix DeepOrange50}  {RGB}{251, 233, 231}
-\XCM@definecolor{\XCM@prefix DeepOrange100} {RGB}{255, 204, 188}
-\XCM@definecolor{\XCM@prefix DeepOrange200} {RGB}{255, 171, 145}
-\XCM@definecolor{\XCM@prefix DeepOrange300} {RGB}{255, 138, 101}
-\XCM@definecolor{\XCM@prefix DeepOrange400} {RGB}{255, 112, 67}
-\XCM@definecolor{\XCM@prefix DeepOrange500} {RGB}{255, 87, 34}
-\XCM@definecolor{\XCM@prefix DeepOrange600} {RGB}{244, 81, 30}
-\XCM@definecolor{\XCM@prefix DeepOrange700} {RGB}{230, 74, 25}
-\XCM@definecolor{\XCM@prefix DeepOrange800} {RGB}{216, 67, 21}
-\XCM@definecolor{\XCM@prefix DeepOrange900} {RGB}{191, 54, 12}
-\XCM@definecolor{\XCM@prefix DeepOrangeA100}{RGB}{255, 158, 128}
-\XCM@definecolor{\XCM@prefix DeepOrangeA200}{RGB}{255, 110, 64}
-\XCM@definecolor{\XCM@prefix DeepOrangeA400}{RGB}{255, 61, 0}
-\XCM@definecolor{\XCM@prefix DeepOrangeA700}{RGB}{221, 44, 0}
+\XCM@definecolor{\XCM@prefix DeepOrange50}  {HTML}{FBE9E7}
+\XCM@definecolor{\XCM@prefix DeepOrange100} {HTML}{FFCCBC}
+\XCM@definecolor{\XCM@prefix DeepOrange200} {HTML}{FFAB91}
+\XCM@definecolor{\XCM@prefix DeepOrange300} {HTML}{FF8A65}
+\XCM@definecolor{\XCM@prefix DeepOrange400} {HTML}{FF7043}
+\XCM@definecolor{\XCM@prefix DeepOrange500} {HTML}{FF5722}
+\XCM@definecolor{\XCM@prefix DeepOrange600} {HTML}{F4511E}
+\XCM@definecolor{\XCM@prefix DeepOrange700} {HTML}{E64A19}
+\XCM@definecolor{\XCM@prefix DeepOrange800} {HTML}{D84315}
+\XCM@definecolor{\XCM@prefix DeepOrange900} {HTML}{BF360C}
+\XCM@definecolor{\XCM@prefix DeepOrangeA100}{HTML}{FF9E80}
+\XCM@definecolor{\XCM@prefix DeepOrangeA200}{HTML}{FF6E40}
+\XCM@definecolor{\XCM@prefix DeepOrangeA400}{HTML}{FF3D00}
+\XCM@definecolor{\XCM@prefix DeepOrangeA700}{HTML}{DD2C00}
 \XCM@definecolor{\XCM@prefix DeepOrange}{named}{\XCM@prefix DeepOrange500}
 %    \end{macrocode}
 %
 % \subsection{Brown}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Brown50}  {RGB}{239,235,233}
-\XCM@definecolor{\XCM@prefix Brown100} {RGB}{215,204,200}
-\XCM@definecolor{\XCM@prefix Brown200} {RGB}{188,170,164}
-\XCM@definecolor{\XCM@prefix Brown300} {RGB}{161,136,127}
-\XCM@definecolor{\XCM@prefix Brown400} {RGB}{141,110,99}
-\XCM@definecolor{\XCM@prefix Brown500} {RGB}{121,85,72}
-\XCM@definecolor{\XCM@prefix Brown600} {RGB}{109,76,65}
-\XCM@definecolor{\XCM@prefix Brown700} {RGB}{93,64,55}
-\XCM@definecolor{\XCM@prefix Brown800} {RGB}{78,52,46}
-\XCM@definecolor{\XCM@prefix Brown900} {RGB}{62,39,35}
+\XCM@definecolor{\XCM@prefix Brown50} {HTML}{EFEBE9}
+\XCM@definecolor{\XCM@prefix Brown100}{HTML}{D7CCC8}
+\XCM@definecolor{\XCM@prefix Brown200}{HTML}{BCAAA4}
+\XCM@definecolor{\XCM@prefix Brown300}{HTML}{A1887F}
+\XCM@definecolor{\XCM@prefix Brown400}{HTML}{8D6E63}
+\XCM@definecolor{\XCM@prefix Brown500}{HTML}{795548}
+\XCM@definecolor{\XCM@prefix Brown600}{HTML}{6D4C41}
+\XCM@definecolor{\XCM@prefix Brown700}{HTML}{5D4037}
+\XCM@definecolor{\XCM@prefix Brown800}{HTML}{4E342E}
+\XCM@definecolor{\XCM@prefix Brown900}{HTML}{3E2723}
 \XCM@definecolor{\XCM@prefix Brown}{named}{\XCM@prefix Brown500}
 %    \end{macrocode}
 %
 % \subsection{Grey}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Grey50}  {RGB}{250, 250, 250}
-\XCM@definecolor{\XCM@prefix Grey100} {RGB}{245, 245, 245}
-\XCM@definecolor{\XCM@prefix Grey200} {RGB}{238, 238, 238}
-\XCM@definecolor{\XCM@prefix Grey300} {RGB}{224, 224, 224}
-\XCM@definecolor{\XCM@prefix Grey400} {RGB}{189, 189, 189}
-\XCM@definecolor{\XCM@prefix Grey500} {RGB}{158, 158, 158}
-\XCM@definecolor{\XCM@prefix Grey600} {RGB}{117, 117, 117}
-\XCM@definecolor{\XCM@prefix Grey700} {RGB}{97, 97, 97}
-\XCM@definecolor{\XCM@prefix Grey800} {RGB}{66, 66, 66}
-\XCM@definecolor{\XCM@prefix Grey900} {RGB}{33, 33, 33}
+\XCM@definecolor{\XCM@prefix Grey50} {HTML}{FAFAFA}
+\XCM@definecolor{\XCM@prefix Grey100}{HTML}{F5F5F5}
+\XCM@definecolor{\XCM@prefix Grey200}{HTML}{EEEEEE}
+\XCM@definecolor{\XCM@prefix Grey300}{HTML}{E0E0E0}
+\XCM@definecolor{\XCM@prefix Grey400}{HTML}{BDBDBD}
+\XCM@definecolor{\XCM@prefix Grey500}{HTML}{9E9E9E}
+\XCM@definecolor{\XCM@prefix Grey600}{HTML}{757575}
+\XCM@definecolor{\XCM@prefix Grey700}{HTML}{616161}
+\XCM@definecolor{\XCM@prefix Grey800}{HTML}{424242}
+\XCM@definecolor{\XCM@prefix Grey900}{HTML}{212121}
 \XCM@definecolor{\XCM@prefix Grey}{named}{\XCM@prefix Grey500}
 %    \end{macrocode}
 %
 % \subsection{Blue Grey}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix BlueGrey50}  {RGB}{236, 239, 241}
-\XCM@definecolor{\XCM@prefix BlueGrey100} {RGB}{207, 216, 220}
-\XCM@definecolor{\XCM@prefix BlueGrey200} {RGB}{176, 190, 197}
-\XCM@definecolor{\XCM@prefix BlueGrey300} {RGB}{144, 164, 174}
-\XCM@definecolor{\XCM@prefix BlueGrey400} {RGB}{120, 144, 156}
-\XCM@definecolor{\XCM@prefix BlueGrey500} {RGB}{96, 125, 139}
-\XCM@definecolor{\XCM@prefix BlueGrey600} {RGB}{84, 110, 122}
-\XCM@definecolor{\XCM@prefix BlueGrey700} {RGB}{69, 90, 100}
-\XCM@definecolor{\XCM@prefix BlueGrey800} {RGB}{55, 71, 79}
-\XCM@definecolor{\XCM@prefix BlueGrey900} {RGB}{38, 50, 56}
+\XCM@definecolor{\XCM@prefix BlueGrey50} {HTML}{ECEFF1}
+\XCM@definecolor{\XCM@prefix BlueGrey100}{HTML}{CFD8DC}
+\XCM@definecolor{\XCM@prefix BlueGrey200}{HTML}{B0BEC5}
+\XCM@definecolor{\XCM@prefix BlueGrey300}{HTML}{90A4AE}
+\XCM@definecolor{\XCM@prefix BlueGrey400}{HTML}{78909C}
+\XCM@definecolor{\XCM@prefix BlueGrey500}{HTML}{607D8B}
+\XCM@definecolor{\XCM@prefix BlueGrey600}{HTML}{546E7A}
+\XCM@definecolor{\XCM@prefix BlueGrey700}{HTML}{455A64}
+\XCM@definecolor{\XCM@prefix BlueGrey800}{HTML}{37474F}
+\XCM@definecolor{\XCM@prefix BlueGrey900}{HTML}{263238}
 \XCM@definecolor{\XCM@prefix BlueGrey}{named}{\XCM@prefix BlueGrey500}
 %    \end{macrocode}
 %
 % \subsection{Black \& White}
 %    \begin{macrocode}
-\XCM@definecolor{\XCM@prefix Black}{named}{black}
-\XCM@definecolor{\XCM@prefix White}{named}{white}
+\XCM@definecolor{\XCM@prefix Black}{HTML}{000000}
+\XCM@definecolor{\XCM@prefix White}{HTML}{FFFFFF}
 %    \end{macrocode}
 %
-% \subsection[Google colors]{\google{} colors}
+% \subsection[Google colors]{\google\ colors}
+% The \google\ colors are available from: 
+% \url{https://design.google.com/articles/evolving-the-google-identity}.
 %    \begin{macrocode}
-\XCM@definecolor{GoogleBlue}  {RGB}{66, 133, 244}
-\XCM@definecolor{GoogleGreen} {RGB}{52, 168, 83}
-\XCM@definecolor{GoogleYellow}{RGB}{251, 220, 5}
-\XCM@definecolor{GoogleRed}   {RGB}{234, 67, 53}
+\XCM@definecolor{GoogleBlue}  {HTML}{4285F4}
+\XCM@definecolor{GoogleGreen} {HTML}{34A853}
+\XCM@definecolor{GoogleYellow}{HTML}{FBBC05}
+\XCM@definecolor{GoogleRed}   {HTML}{EA4335}
 %    \end{macrocode}
 %
 % \section{User-level macros}
@@ -598,14 +694,47 @@
     \#\XCM@extractcolor{#2}{#1}%
   \else\ifx\requiredModel\RGBModel
     rgb(\XCM@extractcolor{#2}{#1})%
-    \else\ifx\requiredModel\CMYKModel
-      cmyk(\XCM@extractcolor{#2}{#1})%
-      \else\fi
-    \fi
-  \fi
+  \else\ifx\requiredModel\CMYKModel
+    cmyk(\XCM@extractcolor{#2}{#1})%
+  \else\fi\fi\fi
 }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\colorsample}
+% A user level macro for printing color samples. It prints a colored latex 
+% |colorbox| with color name and value. By default the color for text is 
+%|white|, and the color model is |HTML|.
+%    \begin{macrocode}
+\def\colorsample{%
+  \@ifnextchar[%
+    {\colorsample@i}
+    {\colorsample@i[white]}%
+}
+\def\colorsample@i[#1]{%
+  \@ifnextchar[%
+    {\colorsample@ii{#1}}
+    {\colorsample@ii{#1}[HTML]}%
+}
+\def\colorsample@ii#1[#2]#3#4{%
+  \colorbox{#3}{%
+    \hspace*{.5em}
+    \parbox[b][12\baselineskip]{9em}{%
+      \bfseries\sffamily\color{#1}
+      \vspace*{1em}
+      \def\XCM@temp{#4}\ifx\XCM@temp\empty
+        \raggedright#3%
+      \else
+        \raggedright#4%
+      \fi
+      \vfill
+      \texttt{\printcolorvalue[#2]{#3}}
+      \vspace*{1em}
+    }
+    \hspace*{.5em} 
+  }
+}
+%    \end{macrocode}
+% \end{macro}Fui Seducido marcos brunet
 % I provide some macro definitions at begin document.
 %    \begin{macrocode}
 \AtBeginDocument{
@@ -613,124 +742,121 @@
 % There is a macro definition that is built on top of the \tikzpkg{} package. 
 % This definition works if this package is loaded into main document.
 %    \begin{macrocode}
-  \@ifpackageloaded{tikz}{%
+\@ifpackageloaded{tikz}{%
 %    \end{macrocode}
 % When \tikzpkg{} is loaded a macro with key--value options is provided, using
 % the |\pgfkeys| tools. Those macro arguments are optional, the default value
 % of each one is defined on the |/palette/default| style.
 %    \begin{macrocode}
-  \pgfkeys{/palette/.is family, /palette,
-    width/.estore in = \XCM@pltWidth,
-    height/.estore in = \XCM@pltHeight,
-    shape/.estore in = \XCM@pltShape,
-    title text color/.estore in = \XCM@pltTTextColor,
-    first text color/.estore in = \XCM@pltFTextColor,
-    second text color/.estore in = \XCM@pltSTextColor,
-    colorbox variant font/.store in = \XCM@pltVFont,
-    colorbox value font/.store in = \XCM@pltNFont,
-    title font/.store in = \XCM@pltTFont,
-    colorbox sep/.estore in = \XCM@pltColorboxSep,
-    first colorbox sep/.estore in = \XCM@pltFirstCSep,
-    title colorbox height/.estore in = \XCM@pltTitleHeight,
-    color variant/.estore in = \XCM@pltVariant,
-    add variant/.estore in = \XCM@pltAddVariant,
-    percent char/.estore in = \XCM@pltPercentSep,
-    primary variant/.estore in = \XCM@pltPrimary,
-    change at/.estore in = \XCM@pltChange,
-    add change at/.estore in = \XCM@pltAddChange,
-    color model/.estore in = \XCM@ColorModel,
-    default/.style = {width = .45\textwidth,
-      height = 2\baselineskip,
-      shape = rectangle,
-      title text color = black,
-      first text color = black,
-      second text color = white,
-      colorbox sep = 0pt,
-      first colorbox sep = .2\baselineskip,
-      title colorbox height = 6\baselineskip,
-      colorbox variant font = \sffamily,
-      colorbox value font = \ttfamily,
-      title font = \sffamily\bfseries,
-      color variant = {10,20,...,100},
-      add variant = {},
-      percent char = !,
-      primary variant = 100,
-      change at = 1000,
-      add change at = 1000,
-      color model = HTML
-    }
+\pgfkeys{/palette/.is family, /palette,
+  width/.estore in = \XCM@pltWidth,
+  height/.estore in = \XCM@pltHeight,
+  shape/.estore in = \XCM@pltShape,
+  title text color/.estore in = \XCM@pltTTextColor,
+  first text color/.estore in = \XCM@pltFTextColor,
+  second text color/.estore in = \XCM@pltSTextColor,
+  colorbox variant font/.store in = \XCM@pltVFont,
+  colorbox value font/.store in = \XCM@pltNFont,
+  title font/.store in = \XCM@pltTFont,
+  colorbox sep/.estore in = \XCM@pltColorboxSep,
+  first colorbox sep/.estore in = \XCM@pltFirstCSep,
+  title colorbox height/.estore in = \XCM@pltTitleHeight,
+  color variant/.estore in = \XCM@pltVariant,
+  add variant/.estore in = \XCM@pltAddVariant,
+  percent char/.estore in = \XCM@pltPercentSep,
+  primary variant/.estore in = \XCM@pltPrimary,
+  change at/.estore in = \XCM@pltChange,
+  add change at/.estore in = \XCM@pltAddChange,
+  color model/.estore in = \XCM@ColorModel,
+  default/.style = {width = .45\textwidth,
+    height = 2\baselineskip,
+    shape = rectangle,
+    title text color = black,
+    first text color = black,
+    second text color = white,
+    colorbox sep = 0pt,
+    first colorbox sep = .2\baselineskip,
+    title colorbox height = 6\baselineskip,
+    colorbox variant font = \sffamily,
+    colorbox value font = \ttfamily,
+    title font = \sffamily\bfseries,
+    color variant = {10,20,...,100},
+    add variant = {},
+    percent char = !,
+    primary variant = 100,
+    change at = 1000,
+    add change at = 1000,
+    color model = HTML
   }
+}
 %    \end{macrocode}
 % The |positioning| library of \tikzpkg{} is loaded to provide convenient node
 % placement.
 %    \begin{macrocode}
-  \usetikzlibrary{positioning}
+\usetikzlibrary{positioning}
 %    \end{macrocode}
 % \begin{macro}{\colorpalette}
 % A macro to draw color palettes using \tikzpkg{}. It takes a list of
 % key--value optional arguments. The default value of the arguments is
 % specified in the |/palette/default| style defined above.
 %    \begin{macrocode}
-  \newcommand*{\colorpalette}[2][]{%
-    \pgfkeys{/palette, default, #1}%
-    \def\XCM@colorname{#2}%
-    \begin{tikzpicture}
-      \tikzset{colorbox/.style={\XCM@pltShape, minimum width=\XCM@pltWidth,
-        minimum height=\XCM@pltHeight, node distance=\XCM@pltColorboxSep,
-        outer sep=0pt}}
-      \tikzset{title/.style = {font=\XCM@pltTFont, color=\XCM@pltTTextColor,
-        inner sep=1em}}
-      \tikzset{variant/.style = {font=\XCM@pltVFont, inner sep=1em}}
-      \tikzset{value/.style = {font=\XCM@pltNFont, inner sep=1em}}
-      
-      \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\XCM@pltPrimary,
+\newcommand*{\colorpalette}[2][]{%
+  \pgfkeys{/palette, default, #1}%
+  \def\XCM@colorname{#2}%
+  \begin{tikzpicture}
+    \tikzset{colorbox/.style={\XCM@pltShape, minimum width=\XCM@pltWidth,
+      minimum height=\XCM@pltHeight, node distance=\XCM@pltColorboxSep,
+      outer sep=0pt}}
+    \tikzset{title/.style = {font=\XCM@pltTFont, color=\XCM@pltTTextColor,
+      inner sep=1em}}
+    \tikzset{variant/.style = {font=\XCM@pltVFont, inner sep=1em}}
+    \tikzset{value/.style = {font=\XCM@pltNFont, inner sep=1em}}
+    \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\XCM@pltPrimary,
       minimum height=\XCM@pltTitleHeight, alias=last] {};
-      \node[title, anchor=north west] at (last.north west) {\XCM@colorname};
-      \node[title, anchor=south west] at (last.south west) {\XCM@pltPrimary};
-      \node[title, anchor=south east, align=right] at (last.south east) 
+    \node[title, anchor=north west] at (last.north west) {\XCM@colorname};
+    \node[title, anchor=south west] at (last.south west) {\XCM@pltPrimary};
+    \node[title, anchor=south east, align=right] at (last.south east) 
       {\texttt{\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
       \XCM@pltPercentSep\XCM@pltPrimary}}};
-      
-      \def\auxcolor{\XCM@pltFTextColor}%
-      \def\first{1}%
-      \foreach \variant [count=\i] in \XCM@pltVariant {
-        \ifx\i\first
-          \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last,
+    \def\auxcolor{\XCM@pltFTextColor}%
+    \def\first{1}%
+    \foreach \variant [count=\i] in \XCM@pltVariant {
+      \ifx\i\first
+        \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last,
           alias=last] {};
-        \else\fi
-        \ifx\variant\XCM@pltChange
-          \gdef\auxcolor{\XCM@pltSTextColor}%
-        \else\fi
-        \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant,
-          below=of last, alias=last] {};
-        \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
-        \node[value, anchor=east, color=\auxcolor, align=right] at (last.east)
-          {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
-            \XCM@pltPercentSep\variant}};
-      }%
-      
-      \def\auxcolor{\XCM@pltFTextColor}%
-      \foreach \variant [count=\i] in \XCM@pltAddVariant {
-        \ifx\i\first
-          \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last,
-          alias=last] {};
-        \else\fi 
-        \ifx\variant\XCM@pltAddChange
-          \gdef\auxcolor{\XCM@pltSTextColor}%
-        \else\fi
-        \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant,
-          below=of last, alias=last] {};
-        \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
-        \node[value, anchor=east, color=\auxcolor, align=right] at (last.east)
-          {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
-            \XCM@pltPercentSep\variant}};
-      }%
-    \end{tikzpicture}%
-  }
+      \else\fi
+      \ifx\variant\XCM@pltChange
+        \gdef\auxcolor{\XCM@pltSTextColor}%
+      \else\fi
+      \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant,
+        below=of last, alias=last] {};
+      \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
+      \node[value, anchor=east, color=\auxcolor, align=right] at (last.east)
+        {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
+        \XCM@pltPercentSep\variant}};
+    }%
+    \def\auxcolor{\XCM@pltFTextColor}%
+    \foreach \variant [count=\i] in \XCM@pltAddVariant {
+      \ifx\i\first
+      \node[node distance=\XCM@pltFirstCSep, inner sep=0pt, below=of last,
+        alias=last] {};
+      \else\fi 
+      \ifx\variant\XCM@pltAddChange
+        \gdef\auxcolor{\XCM@pltSTextColor}%
+      \else\fi
+      \node[colorbox, fill=\XCM@colorname\XCM@pltPercentSep\variant,
+        below=of last, alias=last] {};
+      \node[variant, anchor=west, color=\auxcolor] at (last.west) {\variant};
+      \node[value, anchor=east, color=\auxcolor, align=right] at (last.east)
+        {\printcolorvalue[\XCM@ColorModel]{\XCM@colorname%
+        \XCM@pltPercentSep\variant}};
+    }%
+  \end{tikzpicture}%
+}
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}
-  }{}
+}{}
 }
 %    \end{macrocode}
 % \Finale
