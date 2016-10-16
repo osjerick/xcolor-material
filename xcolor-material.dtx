@@ -107,8 +107,8 @@
 %\setbox\abstractbox=\vbox{
 % \begin{abstract}
 % The \xmpkg\ package is built on top of the great \xcolorpkg\ package. It 
-% exists for providing a useful definition of the beautiful \google\ Material 
-% Color Palette, available from 
+% provides a useful definition of the beautiful \google\ Material 
+% Color Palette, available at 
 % \url{https://material.google.com/style/color.html}, for its use in document 
 % writing with \LaTeX\ and Friends.
 % \end{abstract}}
@@ -128,24 +128,24 @@
 % \section{Installation}
 %
 % \subsection{Required Packages}
-% The \xmpkg\ package requires relatively up-to-date versions of the packages: 
-% \kvopkg\footnote{The \kvopkg\ package is available from
+% The \xmpkg\ package requires relatively updated packages. These packages are 
+% \kvopkg\footnote{The \kvopkg\ package is available at
 % \url{https://www.ctan.org/pkg/kvoptions}} and \xcolorpkg\footnote{The 
-% \xcolorpkg\ package is available from \url{https://www.ctan.org/pkg/xcolor}}, 
-% which are distributed with any popular \TeX\ distribution. Both packages are 
-% loaded without any options.
+% \xcolorpkg\ package is available at \url{https://www.ctan.org/pkg/xcolor}}, 
+% which are included in any popular \TeX\ distribution. Both are loaded without 
+% options.
 %
 % \subsection{Installing \xmpkg}
-% If the package is released on \href{http://www.ctan.org}{CTAN}, the users
-% should be able to install it through the \TeX\ distribution package manager
-% available on their PC. Nevertheless, if you need to install the package 
-% manually, you should run
+% Once the \xmpkg\ package is released in \href{http://www.ctan.org}{CTAN}, 
+% users should be able to install it from the \TeX\ distribution package manager
+% available in their PC. However, if you need to install this package 
+% manually, you should run:
 % ^^A
 % \begin{verbatim}
 %   latex xcolor-material.ins\end{verbatim}
 % ^^A
 % and copy the generated file |xcolor-material.sty| to a path where \LaTeX\ can 
-% find it. To generate the documentation you should run the following 
+% find it. To generate the documentation run the following 
 % command twice.
 % ^^A
 % \begin{verbatim}
@@ -170,23 +170,23 @@
 %   purposes. The default prefix is ``|Material|''.
 % \end{description}
 % The main purpose of this option is to avoid conflicts with other existent 
-% color definitions. The |prefix| option allows custom prefix definition. For
-% instance, if you want to use the word `|myprefix|' as the color prefix, 
+% color definitions. The |prefix| option allows custom prefix definition, e.g., 
+% if you want to use the word `|myprefix|' as the color prefix, 
 % then you must load the \xmpkg\ package with
 % ^^A
 % \begin{verbatim}
 %   \usepackage[prefix=myprefix]{xcolor-material}\end{verbatim}
 %
 % \section{Using \xmpkg}
-% The \xmpkg\ provides all colors defined in the Google Material Color 
-% Palette, available at \url{https://material.google.com/style/color.html}, at 
+% The \xmpkg\ provides all colors specified in the Google Material Color 
+% Palette, available at \url{https://material.google.com/style/color.html}, in 
 % the global scope of the document. This package relies on the \xcolorpkg\ 
 % package, and you should refer to its documentation for more details 
 % about using colors inside the document.
 %
 % \subsection{Color Names}
-% The Google Material Color Palette consists of another 19 color palettes (each 
-% for one base color) and two colors not listed into a palette (|White| and 
+% The Google Material Color Palette consists of 19 color palettes (each 
+% for one base color) and two colors not included in any palette (|White| and 
 % |Black|), together forming a list of 256 colors. Each individual palette 
 % consists of 14 color variations of the base color, except for |Brown|, 
 % |Grey|, and |Blue Grey| with 10. Every color variation has a number from the 
@@ -243,13 +243,14 @@
 % \end{itemize}
 % For instance, by default (if a custom prefix is not defined), the |Blue 600| 
 % color of the palette will be available in the document global scope as 
-% ``|MaterialBlue600|''. Also, all base colors are representative of primary 
-% colors and are available at the |500| variation or at the base color name, 
-% e.g., |MaterialBlue| or |MaterialBlue500|.
+% ``|MaterialBlue600|''. Also, all base colors are representative of the 
+% palettes' primary color and are available at the |500| variation or using 
+% their color names, e.g., |MaterialBlue| or |MaterialBlue500| are the primary 
+% color of the ``Material Blue Palette''.
 %
 % \subsection[Google Colors]{\google{} Colors}
 % The \xmpkg\ package provides the Google Identity colors, which definitions 
-% are available at the Google Design Blog from
+% are available in the Google Design Blog at
 % \url{https://design.google.com/articles/evolving-the-google-identity}. 
 % The name under which these colors are defined has the form 
 % `Google\meta{name}', where \meta{name} is a color name among 
@@ -352,7 +353,7 @@
 % table \ref{tab:keyvalue} and \ref{tab:styles} respectively. The \xmpkg\ 
 % package relies on the \textsf{pgfkeys} package to provide key-value 
 % arguments, for deeper knowledge about how to use key-value arguments look at 
-% package documentation\footnote{The \textsf{pgfkeys} package is available from 
+% package documentation\footnote{The \textsf{pgfkeys} package is available at 
 % \url{https://www.ctan.org/pkg/pgfkeys}.}.
 %
 % \begin{table}[t!]
@@ -439,7 +440,7 @@
 % variation=orange, primary toggle at=blue, title=Predefined Orange]{}
 %
 % \subsection{Color Palettes}\label{sec:colorpalettes}
-% Here I present all the Google Material Palettes in the same way as they 
+% Here all Google Material Palettes are presented in the same way as they 
 % appear at the Google Design blog using the |\colorpalette| command described
 % above.
 %
@@ -569,7 +570,7 @@
 %
 % \section{Acknowledgements}
 % This package was inspired by the \textsf{xcolor-solarized} package, available
-% from \url{https://www.ctan.org/pkg/xcolor-solarized}, then I have to thank 
+% at \url{https://www.ctan.org/pkg/xcolor-solarized}, then I have to thank 
 % Julien Cretel its creator. Also, thanks to \google\ for such amazing color 
 % palette.
 %
@@ -989,7 +990,7 @@
 %    \end{macrocode}
 %
 % \subsection[Google colors]{\google\ colors}
-% The \google\ Indentity colors are available from 
+% The \google\ Indentity colors are available at 
 % \url{https://design.google.com/articles/evolving-the-google-identity}.
 %    \begin{macrocode}
 \definecolor{GoogleBlue}  {HTML}{4285F4}
