@@ -1,3 +1,8 @@
+```
+This package is no longer maintained and is an archived project.
+```
+---
+
 # The xcolor-material package
 The `xcolor-material` package is built on top of the great [xcolor](https://www.ctan.org/pkg/xcolor) package. It provides a useful definition of the beautiful **Google Material Color Palette**, available at https://material.google.com/style/color.html, for its use in document writing with LaTeX and Friends.
 
